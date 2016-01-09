@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :admins, controllers: {:sessions => 'admins/sessions', :confirmations => 'admins/confirmations'} 
-  devise_for :organizations, controllers: {:sessions=>'organizations/sessions',:registrations =>'organizations/registrations'}
+  devise_for :organizations, controllers: {:sessions=>'organizations/sessions'}
   devise_for :users, controllers: {:sessions => 'users/sessions', :confirmations => 'users/confirmations'} 
   
    as :user do
@@ -25,6 +25,8 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
    root 'welcome#index'
+
+     resources :products
 
 
  
