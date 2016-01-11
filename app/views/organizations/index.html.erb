@@ -1,25 +1,34 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <p id="notice"><%= notice %></p>
+  <h1>Listing Organizations</h1>
 
-<h1>Listing Organizations</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @organizations.each do |organization| %>
+  <table>
+    <thead>
       <tr>
-        <td><%= link_to 'Show', organization %></td>
-        <td><%= link_to 'Edit', edit_organization_path(organization) %></td>
-        <td><%= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Name</th>
+        <th>Serial #</th>
+        <th>Picture</th>
+        <th colspan="3">Actions</th>
       </tr>
+    </thead> 
+    <tbody>
+     <% if @organizations.size == 0 %>
+          <tr>
+            <td colspan="4">There is no organization in this section</td>
+          </tr>
+        <% else %>    
+      <% @organizations.each do |organization| %>
+        <tr>
+          <td><%= link_to 'Show', organization %></td>
+          <td><%= link_to 'Edit', edit_organization_path(organization) %></td>
+          <td><%= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
     <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 
-<br>
+  <br>
 
-<%= link_to 'New Organization', new_organization_path %>
+  <%= link_to 'New Organization', new_organization_path %>
+</div>

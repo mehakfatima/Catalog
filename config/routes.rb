@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :admins, controllers: {:sessions => 'admins/sessions', :confirmations => 'admins/confirmations'} 
   devise_for :organizations, controllers: {:sessions=>'organizations/sessions'}
   devise_for :users, controllers: {:sessions => 'users/sessions', :confirmations => 'users/confirmations'} 
   
@@ -7,15 +6,14 @@ Rails.application.routes.draw do
     get    '/login'   => 'users/sessions#new'
     post   '/login'   => 'users/sessions#create'
     delete '/logout'  => 'users/sessions#destroy'
+    get '/' => 'users/sessions#new'
+    get    'admin/login'   => 'users/sessions#new'
+    post   'admin/login'   => 'users/sessions#create'
+    delete 'admin/logout'  => 'users/sessions#destroy'
   end
 
-     as :admin do
-    get    'admin/login'   => 'admins/sessions#new'
-    post   'admin/login'   => 'admins/sessions#create'
-    delete 'admin/logout'  => 'admins/sessions#destroy'
-  end
 
-     as :organization do
+   as :organization do
     get    'organization/login'   => 'organizations/sessions#new'
     post   'organization/login'   => 'organizations/sessions#create'
     delete 'organization/logout'  => 'organizations/sessions#destroy'
@@ -24,10 +22,13 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-   root 'welcome#index'
+   root 'users/sessions#new'
 
      resources :products
-
+     resources :organizations
+     resources :admins
+     resources :users
+     resources :catalog
 
  
   # Example of regular route:
@@ -37,7 +38,6 @@ Rails.application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
-  resources :welcome
 
   # Example resource route with options:
   #   resources :products do

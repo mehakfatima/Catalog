@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  #before_action :authenticate_user! || :authenticate_organization!
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 #  before_filter :require_login
   # GET /products

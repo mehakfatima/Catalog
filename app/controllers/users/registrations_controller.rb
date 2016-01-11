@@ -9,9 +9,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
    def create
-     
-    #user.add_role :moderator
-    
+    super
    end
 
   # GET /resource/edit

@@ -6,24 +6,21 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-
-Role.delete_all
 puts "Adding Roles"
-['admin','user'].each do |r|
-  @role = Role.new
-  @role.name = r
-  @role.save
+['admin', 'user'].each do |role|
+  Role.find_or_create_by({name: role})
 end
 
 unless User.find_by_email('admin@techverx.com').present?
-	# create a role named "admin"
-	admin_role = Role.find_by_name("admin")
-	# create an admin user
-	admin_user = User.create!(:email => "admin@techverx.com", :password => "12345678")
+	admin_role = Role.find_by_name("admin")  
+	# create an Administration user  
+  admin_user = User.new({ :email => 'admin@techverx.com', 
+              :password => '12345678', 
+              :password_confirmation => '12345678'})
+  admin_user.skip_confirmation!
+  admin_user.save
 	admin_user.roles << admin_role
-
 	puts "Admin created....skipping"
-
 else
 	puts "Admin exist....skipping"
 end

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CatalogNew</title>
+  <title>Catalog</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -20,14 +20,22 @@
       </button>
       <a class="navbar-brand" href="#">Catalog</a>
     </div>
-
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">        
-      <% if user_signed_in? %>      
-        <p class="navbar-text navbar-right">Signed in as <%= current_user.email %>. <%= link_to "Sign out", destroy_user_session_path, :method => :delete, class: "navbar-link"  %></p>
-      <% else %> 
-	 <%= link_to "Sign in", new_user_session_path , class: "btn btn-default navbar-btn" %> 
+       <% if current_user.present? %>    
+        <% if user_signed_in? %>      
+          <p class="navbar-text navbar-right">Signed in as <%= current_user.email %>. <%= link_to "Sign out", destroy_user_session_path, :method => :delete, class: "navbar-link"  %></p>
+        <% else %> 
+           <%= link_to "Sign in", new_user_session_path , class: "btn btn-default navbar-btn" %> 
+        <% end %> 
+      <%  else %>    
+        <% if organization_signed_in? %>   
+          <p class="navbar-text navbar-right">Signed in as <%= current_organization.email %>. <%= link_to "Sign out", destroy_organization_session_path, :method => :delete, class: "navbar-link"  %></p>
+        <% else %> 
+           <%= link_to "Sign in", new_organization_session_path , class: "btn btn-default navbar-btn" %> 
+        <% end %>
       <% end %>
+
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
