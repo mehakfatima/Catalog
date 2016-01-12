@@ -72,6 +72,7 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
+      debugger
       params.require(:product).permit(:name, :serial_number,:image)
 
     end

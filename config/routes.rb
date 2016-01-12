@@ -1,16 +1,5 @@
 Rails.application.routes.draw do
-    #devise_for :admins, :controllers => { :sessions => "admins/sessions" }
-  
-#  
-#  as :organization do
-#    get    'organization/login'   => 'organizations/sessions#new'
-#    post   'organization/login'   => 'organizations/sessions#create'
-#    delete 'organization/logout'  => 'organizations/sessions#destroy'
-#  end
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
+  resources :categories
   root 'catalog#index'
   get '/'           => 'catalog#index'
   devise_for :admins, :controllers => { :sessions => "admins/sessions" }
@@ -24,10 +13,21 @@ Rails.application.routes.draw do
       post   '/login'   => 'admins/sessions#create'
       delete '/logout'  => 'admins/sessions#destroy'
     end
-    get     '/admins' => 'admins/admins#index'
+    #get     '/admins' => 'admins/admins#index'
     resources :organizations do
       resources :products
     end
+    resources :categories
+    resources :products    
+  end
+  
+  scope '/organization' do
+    as :organization do
+      get    '/login'   => 'organizations/sessions#new'
+      post   '/login'   => 'organizations/sessions#create'
+      delete '/logout'  => 'organizations/sessions#destroy'
+    end
+    get     '/organizations' => 'organization#index'
     resources :products    
   end
   
