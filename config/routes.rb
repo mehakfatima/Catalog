@@ -1,55 +1,44 @@
 Rails.application.routes.draw do
-  devise_for :organizations, controllers: {:sessions=>'organizations/sessions'}
-  devise_for :users, controllers: {:sessions => 'users/sessions', :confirmations => 'users/confirmations'} 
+    #devise_for :admins, :controllers => { :sessions => "admins/sessions" }
   
-   as :user do
-    get    '/login'   => 'users/sessions#new'
-    post   '/login'   => 'users/sessions#create'
-    delete '/logout'  => 'users/sessions#destroy'
-    get '/' => 'users/sessions#new'
-    get    'admin/login'   => 'users/sessions#new'
-    post   'admin/login'   => 'users/sessions#create'
-    delete 'admin/logout'  => 'users/sessions#destroy'
-  end
-
-
-   as :organization do
-    get    'organization/login'   => 'organizations/sessions#new'
-    post   'organization/login'   => 'organizations/sessions#create'
-    delete 'organization/logout'  => 'organizations/sessions#destroy'
-  end
+#  
+#  as :organization do
+#    get    'organization/login'   => 'organizations/sessions#new'
+#    post   'organization/login'   => 'organizations/sessions#create'
+#    delete 'organization/logout'  => 'organizations/sessions#destroy'
+#  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-   root 'users/sessions#new'
+  root 'catalog#index'
+  get '/'           => 'catalog#index'
+  devise_for :admins, :controllers => { :sessions => "admins/sessions" }
+  devise_for :organizations, controllers: {:sessions=>'organizations/sessions',:registrations =>'organizations/registrations'}
+  devise_for :users, controllers: {:sessions => 'users/sessions', :confirmations => 'users/confirmations',:registrations =>'users/registrations'} 
 
-     resources :products
-     resources :organizations
-     resources :admins
-     resources :users
-     resources :catalog
-
- 
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
+  scope '/admin' do
+    as :admin do
+      get '/'           => 'admins/admins#index'
+      get    '/login'   => 'admins/sessions#new'
+      post   '/login'   => 'admins/sessions#create'
+      delete '/logout'  => 'admins/sessions#destroy'
+    end
+    get     '/admins' => 'admins/admins#index'
+    resources :organizations do
+      resources :products
+    end
+    resources :products    
+  end
+  
+  as :user do
+    get    '/login'   => 'users/sessions#new'
+    post   '/login'   => 'users/sessions#create'
+    delete '/logout'  => 'users/sessions#destroy'
+  end
+  
+  
+  resources :catalog
 
   # Example resource route with sub-resources:
   #   resources :products do

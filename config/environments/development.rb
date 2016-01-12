@@ -41,8 +41,9 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-
-# For Email Confirmation
+  #image uploading
+  Paperclip.options[:command_path] = "/usr/bin/"
+  # For Email Confirmation
 
   config.action_mailer.smtp_settings = {
       :user_name => 'mehak@gems.techverx.com',

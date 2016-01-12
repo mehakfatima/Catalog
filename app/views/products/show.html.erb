@@ -1,4 +1,11 @@
-<p id="notice"><%= notice %></p>
-
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+<div class="container">
+  <p id="notice"><%= notice %></p>
+  <div class="row">
+    <%= image_tag @product.name %>
+  </div>
+  <%= image_tag @product.image.url %>
+  <%= image_tag @product.image.url(:medium) %>
+  <%= image_tag @product.image.url(:thumb) %>
+  <%= link_to 'Edit', edit_products_path(@product) %> |
+  <%= link_to 'Back', products_path %>
+</div>

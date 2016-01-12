@@ -4,7 +4,6 @@ class CreateProducts < ActiveRecord::Migration
 
       t.string :name
       t.string :serial_number
-      t.string :file
       t.belongs_to :organization, index:true
       t.timestamps null: false
 

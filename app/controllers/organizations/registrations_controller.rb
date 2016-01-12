@@ -9,7 +9,16 @@ class Organizations::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
    def create
-     super
+      @organization = Organization.new(sign_up_params)
+    respond_to do |format|
+      if @organization.save
+        format.html { redirect_to @organization, notice: 'Organization was successfully created.' }
+        format.json { render :show, status: :created, location: @organization }
+      else
+        format.html { render :new }
+        format.json { render json: @organization.errors, status: :unprocessable_entity }
+      end
+    end
    end
 
   # GET /resource/edit
@@ -36,12 +45,16 @@ class Organizations::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
+   protected
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.for(:sign_up) << :attribute
-  # end
+   def sign_up_params
+    params.require(:organization).permit(:name,  :email, :password, :password_confirmation)
+  end
+
+  def account_update_params
+    params.require(:organization).permit(:name, :email, :password, :password_confirmation, :current_password)
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params
