@@ -15,7 +15,7 @@
     </div>
      <% if admin_signed_in? %> 
       <ul class="nav navbar-nav">
-        <li><%= link_to 'Organizations', organizations_path  %> </li>
+        <li><%= link_to 'Organizations', admins_organizations_path  %> </li>
         <li role="presentation"><%= link_to 'Products' , products_path %></li>
         <li role="presentation"><%= link_to 'Categories', categories_path %> </li>
       </ul>

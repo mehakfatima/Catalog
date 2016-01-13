@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
-  resources :categories
   root 'catalog#index'
   get '/'           => 'catalog#index'
   devise_for :admins, :controllers => { :sessions => "admins/sessions" }
-  devise_for :organizations, controllers: {:sessions=>'organizations/sessions',:registrations =>'organizations/registrations'}
+  devise_for :organizations, controllers: {:sessions=>'organizations/sessions'}
   devise_for :users, controllers: {:sessions => 'users/sessions', :confirmations => 'users/confirmations',:registrations =>'users/registrations'} 
 
   scope '/admin' do
@@ -13,22 +12,28 @@ Rails.application.routes.draw do
       post   '/login'   => 'admins/sessions#create'
       delete '/logout'  => 'admins/sessions#destroy'
     end
-    #get     '/admins' => 'admins/admins#index'
-    resources :organizations do
-      resources :products
-    end
+    
     resources :categories
+    resources :catalog
     resources :products    
   end
   
+  namespace :admins do
+    resources :organizations do
+      resources :products
+   end
+  end
+#  namespace :organizations do
+#    resources :products
+#    resources :categories
+#  end
+
   scope '/organization' do
     as :organization do
       get    '/login'   => 'organizations/sessions#new'
       post   '/login'   => 'organizations/sessions#create'
       delete '/logout'  => 'organizations/sessions#destroy'
-    end
-    get     '/organizations' => 'organization#index'
-    resources :products    
+    end    
   end
   
   as :user do

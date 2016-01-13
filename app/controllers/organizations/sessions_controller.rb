@@ -12,7 +12,7 @@ class Organizations::SessionsController < Devise::SessionsController
       org = Organization.find_for_database_authentication(:email => params[:organization][:email])      
        if org.present?
          sign_in(org)
-        redirect_to products_path
+        redirect_to organizations_products_path
       end
     end
    end

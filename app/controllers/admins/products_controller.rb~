@@ -1,9 +1,17 @@
 class ProductsController < ApplicationController
-  
-  before_action :set_product, only: [:show, :edit, :update, :destroy] 
-  
-  def index    
+  #before_action :authenticate_user! || :authenticate_organization!
+  before_action :set_product, only: [:show, :edit, :update, :destroy]  
+  before_filter :org_id ,only: [:new] 
+  #  before_filter :require_login
+  # GET /products
+  # GET /products.json
+  def index
+    if current_organization
+      organization = Organization.find_by_email(current_organization.email)
+      @products = organization.products
+    else
       @products = Product.all
+    end    
   end
 
   # GET /products/1
@@ -71,7 +79,16 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:name, :serial_number,:image , :category_ids)
+      params.require(:product).permit(:name, :serial_number,:image, :organization_id , :category_ids)
+    end
+    
+    
+    def org_id
+      if current_organization
+        @org_id = current_organization.id
+      else
+        @org_id = params[:organization_id]
+      end
     end
     
     def add_categories

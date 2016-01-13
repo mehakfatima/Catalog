@@ -16,7 +16,7 @@
     </div>
     <% if organization_signed_in? %> 
       <ul class="nav navbar-nav">
-        <li role="presentation"><%= link_to 'Products' , products_path %></li>
+        <li role="presentation"><%= link_to 'Products' , organizations_products_path %></li>
         <li role="presentation"><%= link_to 'Categories', categories_path %> </li>
       </ul>
     <% end %>

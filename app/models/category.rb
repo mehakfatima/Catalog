@@ -1,8 +1,7 @@
 class Category < ActiveRecord::Base
-  validates_presence_of :name
-  
-  validates :name, uniqueness: { message: "Category is already present" }, presence: true 
-  has_many :product_categories 
+  validates :name, uniqueness: true, presence: true
+
+  has_many :product_categories , :dependent => :destroy
   has_many :products, :through => :product_categories
   
   accepts_nested_attributes_for :product_categories

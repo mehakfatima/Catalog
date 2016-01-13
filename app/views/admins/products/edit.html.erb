@@ -1,0 +1,13 @@
+<div class="container">  
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4>Edit Category</h4>
+    </div>
+    <div class="panel-body">
+        <%= render 'form' %>
+    </div>
+  </div>
+
+<%= link_to 'Show', admins_organization_product_path(@organization.id, @product), class: "btn btn-primary" %> 
+<%= link_to 'Back', admins_organization_products_path(params[:organization_id]), class: "btn btn-default" %>
+</div>

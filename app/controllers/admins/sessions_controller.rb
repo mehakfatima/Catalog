@@ -12,7 +12,7 @@ class Admins::SessionsController < Devise::SessionsController
       user = User.find_for_database_authentication(:email => params[:admin][:email])
       if user.present?
         if current_admin.present?         
-          redirect_to admins_path
+          redirect_to catalog_index_path
         else
           flash[:notice]="Email or password not correct"
         end
