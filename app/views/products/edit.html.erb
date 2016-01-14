@@ -1,13 +1,13 @@
-<div class="container">  
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4>Edit Category</h4>
-    </div>
-    <div class="panel-body">
-        <%= render 'form' %>
+<div class="container-fluid">  
+  <div class="admin-content">    
+  <div class="row">    
+    <div class="col-md-6 col-sm-6"><h2>EDIT PRODUCTS</h2></div>
+    <div class="col-md-6 col-sm-6 text-right">
+      <div class="title-links">
+        <%= link_to 'PRODUCTS', products_path , class: "btn btn-primary btn-sm" %>
+      </div>
     </div>
   </div>
-
-<%= link_to 'Show', @product, class: "btn btn-primary" %> 
-<%= link_to 'Back', products_path, class: "btn btn-default" %>
+  <%= render 'form' %>
+</div>
 </div>

@@ -6,7 +6,7 @@ class Admins::ProductsController < ApplicationController
   def index
     if params[:organization_id]
       organization = Organization.find(params[:organization_id])
-      @products = organization.products
+      @products = organization.products.paginate(:page => params[:page], :per_page => 10)
     end    
   end
   def show

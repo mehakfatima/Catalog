@@ -8,13 +8,7 @@ class Organizations::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
    def create
-    if params[:organization]
-      org = Organization.find_for_database_authentication(:email => params[:organization][:email])      
-       if org.present?
-         sign_in(org)
-        redirect_to organizations_products_path
-      end
-    end
+    super
    end
 
   # DELETE /resource/sign_out

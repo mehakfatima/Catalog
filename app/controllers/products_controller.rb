@@ -3,7 +3,8 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy] 
   
   def index    
-      @products = Product.all
+      @products = Product.paginate(:page => params[:page], :per_page => 10)
+
   end
 
   # GET /products/1
@@ -22,56 +23,48 @@ class ProductsController < ApplicationController
     @product = Product.find_by_id(params[:id])
   end
 
-  # POST /products
-  # POST /products.json
+ 
   def create
+    #images = product_params.image
     @product = Product.new(product_params)  
-    add_categories
-    respond_to do |format|
-      if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
-        format.json { render :show, status: :created, location: @product }
-      else
-        format.html { render :new }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
-    end    
-  end
-
-  # PATCH/PUT /products/1
-  # PATCH/PUT /products/1.json
-  def update
-    respond_to do |format|
-      if @product.update(product_params)
-         redirect_to @product, notice: 'Product was successfully updated.' 
-#        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
-#        format.json { render :index, status: :ok, location: @product }
-      else
-        format.html { render :edit }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
+    add_categories  
+    if @product.save      
+#      images.each do |image|
+#        @product.update(image)
+#      end
+      flash[:success]= 'Product has been created'
+      redirect_to :action => :index
+    else
+      #flash[:notice]= "Product cannot be saved. #{@product.errors.full_messages.join(' ')} "
+      render action: "edit"
     end
   end
 
-  # DELETE /products/1
-  # DELETE /products/1.json
+  def update    
+    if @product.update(product_params)
+    flash[:success]= 'Product was successfully updated.'
+        redirect_to :action => :index 
+    else
+        render action: "edit"
+    end  
+  end
+
   def destroy
-    @product.destroy
-    respond_to do |format|
-      format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    if @product.destroy
+		flash[:success]= 'Product was successfully deleted.'
+      	redirect_to :action => :index 
+    else
+      flash[:error]= 'Error in Destroying Product.'
+    end      
   end
-
+  
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_product
       @product = Product.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def product_params
-      params.require(:product).permit(:name, :serial_number,:image , :category_ids)
+    def product_params #{ :image=> []}
+      params.require(:product).permit(:name, :serial_number, :image , :category_ids)
     end
     
     def add_categories
@@ -82,7 +75,7 @@ class ProductsController < ApplicationController
           @product.categories << category
         end
       else
-        format.html { render :new , notice: 'Category cannot be null'}
+        render :new , notice: 'Category cannot be null'
       end
     end
     

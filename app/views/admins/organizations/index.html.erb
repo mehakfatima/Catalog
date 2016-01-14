@@ -1,40 +1,58 @@
-<div class="container">
-  <p id="notice"><%= notice %></p>
-  <h2>Listing Organizations</h2>
-  <br/>
-  <br/>
-  <%= link_to 'New Organization', new_admins_organization_path, class: "btn btn-primary" %>
-  <br/>
-  <br/>
-  <div class="table-responsive"> 
-    <table class="table table-striped table-hover">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email #</th>
-          <th></th>
-          <th colspan="2">Actions</th>
-        </tr>
-      </thead> 
-      <tbody>
-       <% if @organizations.size == 0 %>
+<div class="container-fluid">  
+  <div class="admin-content">
+    <%# if notice.present? %>
+      <%#*<div id="notice" class="alert alert-success">%>
+        <%#*<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>%>
+        <%#*<strong>Success</strong> <%= notice >%>
+      <%#*</div>%>
+    <%# end %>
+    
+    <div class="row">    
+      <div class="col-md-6 col-sm-6"><h2>ORGANIZATIONS</h2></div>
+      <div class="col-md-6 col-sm-6 text-right">
+        <div class="title-links">
+          <%= link_to '<i class="fa fa-plus fa-fw"></i> Add New'.html_safe, new_admins_organization_path, class: "btn btn-success btn-sm" %>
+        </div>
+      </div>
+    </div>
+
+    <hr class="margin-top-10">
+
+    <div class="clear20"></div>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr>          
+            <th style="width:40%;">NAME</th>
+            <th style="">EMAIL</th>
+            <th class="text-center" style="width:20%;">ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody>
+            
+          <% if @organizations.size == 0 %>
             <tr>
               <td colspan="4">There is no organization in this section</td>
             </tr>
           <% else %>    
-        <% @organizations.each do |organization| %>
-          <tr>
-              <%#debugger%>
-            <td><%=  organization.name %></td>
-            <td><%=  organization.email %></td>
-            <td><%= link_to 'Products', admins_organization_products_path(organization),class: "btn btn-primary" %></td>
-            <td><%= link_to 'Show', admins_organization_path(organization) , class: "btn btn-default"%></td>
-            <td><%= link_to 'Edit', edit_admins_organization_path(organization),class: "btn btn-default" %></td>
-            <td><%= link_to 'Destroy', admins_organization_path(organization), method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-default" %></td>
-          </tr>
-        <% end %>
-      <% end %>
-      </tbody>
-    </table>      
+            <% @organizations.each do |organization| %>
+             <tr>
+               <td><%=  organization.name %></td>
+               <td><%=  organization.email %></td>
+               <td class="text-center actions">
+                   <%= link_to '<i class="fa fa-cubes fa-lg"></i>'.html_safe, admins_organization_products_path(organization) %>
+                   <%= link_to '<i class="fa fa-pencil fa-lg"></i>'.html_safe, edit_admins_organization_path(organization) %>
+                   <%= link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, admins_organization_path(organization), method: :delete, data: { confirm: 'Are you sure?' } %>
+               </td>
+             </tr>
+           <% end %>
+         <% end %>         
+        </tbody>
+      </table>
+    </div>
+    <div class="text-center">
+      <%= will_paginate @organization, renderer: BootstrapPagination::Rails %>
+    </div>
   </div>
 </div>

@@ -1,0 +1,30 @@
+<hr class="margin-top-10">
+<div class="clear10"></div>
+
+<%= form_for [:organizations , @category], html: { class: 'form-horizontal'} do |f| %>
+  <% if @category.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger alert-dismissible">
+      <h2><%= pluralize(@category.errors.count, "error") %> prohibited this category from being saved:</h2>
+
+      <ul>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+      <% @category.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Category Name</label>
+    <div class="col-sm-8">
+      <%= f.text_field :name, autofocus: true, class: "form-control" , required: true %>
+    </div>
+  </div>
+  
+  <div class="actions form-group">
+    <div class="col-sm-offset-2 col-sm-8">
+      <%= f.submit @category.new_record? ? 'create' : 'update', class: "btn btn-success btn-sm" %>     
+    </div>
+  </div>
+<% end %>

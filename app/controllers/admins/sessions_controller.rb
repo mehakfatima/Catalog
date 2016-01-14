@@ -8,24 +8,26 @@ class Admins::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
    def create
-    if params[:admin]
-      user = User.find_for_database_authentication(:email => params[:admin][:email])
-      if user.present?
-        if current_admin.present?         
-          redirect_to catalog_index_path
-        else
-          flash[:notice]="Email or password not correct"
-        end
-      end
-    end
+     super
+#    if params[:admin]
+#      user = User.find_for_database_authentication(:email => params[:admin][:email])
+#      if user.present?
+#        if current_admin.present?         
+#          redirect_to admins_dashboard_index_path
+#        else
+#          flash[:notice]="Email or password not correct"
+#        end
+#      end
+#    end
    end
 
   # DELETE /resource/sign_out
-   def destroy    
+   def destroy
     super
    end
+   
 
-   protected
+   #protected
 
    #If you have extra params to permit, append them to the sanitizer.
 #   def configure_sign_in_params

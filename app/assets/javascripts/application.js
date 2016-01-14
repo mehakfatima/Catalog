@@ -13,7 +13,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require chosen-jquery
+//= require products
 //= require turbolinks
 //= require bootstrap
+//= jquery-1.11.3.min
+//= bootstrap.min
+//= custom
 //= require parsley
 //= require_tree .
+

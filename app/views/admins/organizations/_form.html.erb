@@ -1,9 +1,12 @@
-<%= form_for [:admins , @organization] do |f| %>
+<hr class="margin-top-10">
+<div class="clear10"></div>
+<%= form_for [:admins , @organization], html: { class: "form-horizontal"} do |f| %>
   <% if @organization.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@organization.errors.count, "error") %> prohibited this organization from being saved:</h2>
+    <div id="error_explanation" class="alert alert-danger alert-dismissible">
+      <h4><%= pluralize(@organization.errors.count, "error") %> prohibited this organization from being saved:</h4>
 
       <ul>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
       <% @organization.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
@@ -12,29 +15,36 @@
   <% end %>
 
   <div class="form-group">
-          <%= f.label :name %>
-          <%= f.text_field :name, autofocus: true, class: "form-control" %>
-        </div>
+    <label class="col-sm-2 control-label">Organization Name</label>
+    <div class="col-sm-8">
+      <%= f.text_field :name, autofocus: true, class: "form-control" %>
+    </div>
+  </div>
 
   <div class="form-group">
-          <%= f.label :email %>
-          <%= f.email_field :email, autofocus: true, class: "form-control" %>
-        </div>
+    <label class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-8">
+      <%= f.email_field :email, autofocus: true, class: "form-control" %>
+    </div>
+  </div>
 
   <div class="form-group">
-          <%= f.label :password %>
-          <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
-        </div>
+    <label class="col-sm-2 control-label">Password</label>
+    <div class="col-sm-8">
+      <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+    </div>
+  </div>
 
   <div class="form-group">
-          <%= f.label :password_confirmation %>
-          <%= f.password_field :password_confirmation, class: "form-control" %>
-        </div>
-
-
-  <div class="actions">
-    <%= f.submit "Create" , class: "btn btn-primary" %>
-    <%= link_to 'Cancel', admins_organizations_path , class: "btn btn-default"%>
+    <label class="col-sm-2 control-label">Confirm Password</label>
+    <div class="col-sm-8">
+      <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+    </div>
+  </div>
+  <div class="actions form-group">
+    <div class="col-sm-offset-2 col-sm-8">
+      <%= f.submit @organization.new_record? ? 'create' : 'update', class: "btn btn-success btn-sm" %>     
+    </div>
   </div>
 <% end %>
-
+      

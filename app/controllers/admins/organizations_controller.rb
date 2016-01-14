@@ -2,7 +2,7 @@ class Admins::OrganizationsController < ApplicationController
   #before_action :authenticate_user!
   before_action :set_organization, only: [:show, :edit, :update, :destroy]
   def index
-    @organizations = Organization.all
+    @organizations = Organization.paginate(:page => params[:page], :per_page => 10)
   end
 
   def show

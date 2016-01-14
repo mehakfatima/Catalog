@@ -21,12 +21,13 @@ Rails.application.routes.draw do
   namespace :admins do
     resources :organizations do
       resources :products
-   end
+   end   
+    resources :dashboard
   end
-#  namespace :organizations do
-#    resources :products
-#    resources :categories
-#  end
+  namespace :organizations do
+    resources :products
+    resources :categories
+  end
 
   scope '/organization' do
     as :organization do

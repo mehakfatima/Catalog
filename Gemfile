@@ -26,6 +26,7 @@ gem "parsley-rails"
 # Database
 gem 'pg'
 
+gem 'chosen-rails' , git: 'git://github.com/qpowell/chosen-rails.git'
 gem 'devise'
 gem 'authority'
 gem 'rolify'
@@ -34,6 +35,7 @@ gem 'rolify'
 # Using Bootrap
 gem 'bootstrap-sass'
 gem 'devise-bootstrap-views'
+gem 'will_paginate-bootstrap'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
