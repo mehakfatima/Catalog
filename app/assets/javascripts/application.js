@@ -22,4 +22,3 @@
 //= custom
 //= require parsley
 //= require_tree .
-

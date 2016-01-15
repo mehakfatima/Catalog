@@ -1,5 +1,5 @@
 class Admins::OrganizationsController < ApplicationController
-  #before_action :authenticate_user!
+  before_action :authenticate_admin!
   before_action :set_organization, only: [:show, :edit, :update, :destroy]
   def index
     @organizations = Organization.paginate(:page => params[:page], :per_page => 10)

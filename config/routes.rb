@@ -18,15 +18,17 @@ Rails.application.routes.draw do
     resources :products    
   end
   
-  namespace :admins do
-    resources :organizations do
-      resources :products
-   end   
-    resources :dashboard
-  end
+    namespace :admins do
+      resources :organizations do
+        resources :products
+     end   
+      resources :dashboard
+    end
+    
   namespace :organizations do
     resources :products
     resources :categories
+    resources :dashboard
   end
 
   scope '/organization' do

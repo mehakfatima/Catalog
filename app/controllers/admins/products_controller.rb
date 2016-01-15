@@ -1,6 +1,6 @@
 class Admins::ProductsController < ApplicationController
+  before_action :authenticate_admin!
   before_action :set_product, only: [:show, :edit, :update, :destroy]  
-  before_filter :org_id ,only: [:new] 
   before_filter :organization
 
   def index
@@ -22,21 +22,28 @@ class Admins::ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params)  
-    add_categories  
-    if @product.save
-      flash[:notice]= 'Product has been created'
-      redirect_to :action => :index
+    @product = Product.new(product_params)
+    if params[:category_ids].present?    
+      if @product.save
+       add_categories(@product)
+       add_images(@product)
+        flash[:success]= 'Product has been created'
+        redirect_to :action => :index    
+      else
+        render action: "edit"
+       end
     else
-      flash[:notice]= "Product cannot be saved. #{@product.errors.full_messages.join(' ')} "
+      flash[:error]= 'Category cannot be null'
       render action: "edit"
-    end
+    end 
   end
 
   def update    
     if @product.update(product_params)
-    flash[:notice]= 'Product was successfully updated.'
-        redirect_to :action => :index 
+      add_images(@product)
+      add_categories(@product)  
+      flash[:success]= 'Product was successfully updated.'
+      redirect_to :action => :index 
     else
         render action: "edit"
     end  
@@ -44,46 +51,42 @@ class Admins::ProductsController < ApplicationController
 
   def destroy
     if @product.destroy
-		flash[:notice]= 'Product was successfully deleted.'
-      	redirect_to :action => :index 
+      flash[:success]= 'Product was successfully deleted.'
+      redirect_to :action => :index 
     else
-      flash[:notice]= 'Error in Destroying Product.'
+      flash[:error]= 'Error in Destroying Product.'
     end      
   end
-
+  
   private
+    def set_product
+      @product = Product.find(params[:id])
+    end
+
+    def product_params 
+      params.require(:product).permit(:name, :serial_number, { :images=> []} , :category_ids, :organization_id)
+    end
     
-  def set_product
-    @product = Product.find(params[:id])
-  end
-
-  def org_id
-    if current_organization
-      @org_id = current_organization.id
-    else
-      @org_id = params[:organization_id]
-    end
-  end  
-  
-  def product_params
-    params.require(:product).permit(:name, :serial_number,:image, :organization_id , :category_ids)
-  end
-
-  def add_categories
-    @product = Product.new(product_params)
-    if params[:category_ids].present?
-      params[:category_ids].each do |id|
-        category = Category.find(id)
-        @product.categories << category
+    def add_images(product)
+       if params[:images]
+        params[:images].each { |image|
+          product.galleries.create(image: image)
+        }
       end
-    else
-      render :new , notice: 'Category cannot be null'
     end
-  end
-  
-  def organization
-    if params[:organization_id]
-      @organization = Organization.find(params[:organization_id])
+
+    def add_categories(product)  
+      if params[:category_ids].present?    
+        params[:category_ids].each do |id|
+        category = Category.find(id)
+        product.categories << category
+        end
+      end  
     end
-  end
+
+    def organization
+      if params[:organization_id]
+        @organization = Organization.find(params[:organization_id])
+      end
+    end
 end

@@ -1,7 +1,5 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
-  #login(email, password)
+
   #include DeviseHelper
   layout :layout_by_resource
   protect_from_forgery with: :exception
@@ -18,10 +16,10 @@ class ApplicationController < ActionController::Base
   end
   
   def after_sign_in_path_for(resource_or_scope)
-    if resource_or_scope == :admin
+    if resource_name == :admin
       admins_dashboard_index_path      
-    else if resource_or_scope == :organization
-      new_organization_session
+    else if resource_name == :organization        
+      organizations_dashboard_index_path
       else
         root_path  
       end

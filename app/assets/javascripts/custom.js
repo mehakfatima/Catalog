@@ -47,3 +47,5 @@ $(window).load(function() {
 
 });
 /* Window.Load Ends */
+
+jQuery(function($){ $('.chosen').chosen(); });

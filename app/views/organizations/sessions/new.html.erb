@@ -1,10 +1,9 @@
 <div class="container admin-boxes text-center">
-  <%= devise_error_messages!%>
   <div class="login-area">
     <a href="#"><img src="/assets/logo.png" class="img-responsive center-block"></a>
     <div class="clear10"></div>
     <div class="login-box">
-      <h3>ORGANIZATION LOGIN</h3>    
+      <h3>LOGIN</h3>    
       <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" }) do |f| %>        
         <div class="form-group">
           <%= f.label :email %>
@@ -26,13 +25,47 @@
         </div>
         <div class="forgot-txt pull-right">
           <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
-          <%= link_to t(".forgot_your_password", :default => "Forgot Password?"), new_password_path(resource_name),  class: "forgot-go" %><br />
+          <%= link_to t(".forgot_your_password", :default => "Forgot Password?"), new_password_path(resource_name) %><br />
           <% end -%>
         </div>    
+        
+      <%#*<div class="forgot-txt pull-right">%>
+        <%#= render "admins/shared/links" %>
+      <%#*</div>%>
+      
         <div class="clear"></div>
 
         <%= f.submit  t('.sign_in', :default => "LOGIN"), class: "btn btn-success btn-block" %> 
       <% end %>
     </div> 
   </div>
+    
+  <div class="forgot-area">
+    <a href="#"><img src="/assets/logo.png" class="img-responsive center-block"></a>
+    <div class="clear10"></div>
+
+    <div class="login-box">
+
+    <h3>FORGOT PASSWORD</h3>
+
+        <div class="form-group">
+            <label>Email address</label>
+            <i class="fa fa-user fa-fw"></i>
+            <input type="email" class="form-control">
+          </div>
+
+          <div class="clear"></div>
+          <button class="btn btn-success btn-block">SEND</button>
+
+    </div>
+    
+    <div class="clear10"></div>
+
+    <div class="bottom-links">
+        <a href="../index.html" class="pull-left"><i class="fa fa-angle-left"></i> Back To Site</a>
+        <a href="#" class="pull-right signin-go">Sigin <i class="fa fa-angle-right"></i></a>
+   </div>
+
+</div>
+
  </div>

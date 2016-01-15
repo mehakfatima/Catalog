@@ -1,4 +1,5 @@
 class Organizations::CategoriesController < ApplicationController
+  before_action :authenticate_organization!
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   def index

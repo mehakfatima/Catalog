@@ -1,11 +1,26 @@
-<div class="container">
-  <p id="notice"><%= notice %></p>
-  <div class="row">
-    <%= image_tag @product.name %>
+<div class="container-fluid">  
+  <div class="admin-content">    
+  <div class="row">    
+    <div class="col-md-6 col-sm-6"><h2>PRODUCT DETAILS</h2></div>
+    <div class="col-md-6 col-sm-6 text-right">
+      <div class="title-links">
+        <%= link_to 'PRODUCTS', products_path , class: "btn btn-primary btn-sm" %>
+      </div>
+    </div>
   </div>
-  <%= image_tag @product.image.url %>
-  <%#= image_tag @product.image.url(:medium) %>
-  <%#= image_tag @product.image.url(:thumb) %>
-  <%= link_to 'Edit', edit_product_path(@product) %> |
-  <%= link_to 'Back', products_path %>
+  <hr class="margin-top-10">
+  <div class="row">
+      <h3>Name: <u><%= @product.name %></u></h3>
+  </div>
+    
+  <div class="clear10"></div>
+  <div class="row">
+    <% @product.galleries.each do |gallery| %>
+      <%= image_tag gallery.image.url(:medium) %>
+      <% end %>
+  </div>
+  <div class="col-sm-offset-2 col-sm-8">
+  <%= link_to 'Edit', edit_product_path(@product) ,class: "btn btn-success btn-sm" %> 
+  </div>
+</div>
 </div>
