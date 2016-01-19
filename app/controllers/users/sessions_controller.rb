@@ -8,17 +8,7 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
    def create
-    if params[:user]
-      user = User.find_for_database_authentication(:email => params[:user][:email])
-      if user.present?
-        sign_in(user)
-        if current_user.has_role? :user
-          redirect_to catalog_index_path
-        else
-          redirect_to admins_path
-        end
-      end
-    end
+    super
    end
 
   # DELETE /resource/sign_out

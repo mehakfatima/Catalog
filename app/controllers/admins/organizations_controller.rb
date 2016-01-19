@@ -22,10 +22,9 @@ class Admins::OrganizationsController < ApplicationController
   def create
     @organization = Organization.new(organization_params)
     if @organization.save
-      flash[:notice]= 'Organization has been created, Email has been sent for confirmation'
+      flash[:success]= 'Organization has been created, Email has been sent for confirmation'
       redirect_to :action => :index
     else
-      flash[:notice]= "Organization cannot be saved. #{@organization.errors.full_messages.join(' ')} "
       render action: "edit"
     end
   end

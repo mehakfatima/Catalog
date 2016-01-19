@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController  
-  before_action :authenticate_admin!
+  before_action :authenticate_admin!, except:[:show]
   before_action :set_product, only: [:show, :edit, :update, :destroy] 
   
   def index    
@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
     @product = Product.find_by_id(params[:id])
   end
 
-    def create
+  def create
     @product = Product.new(product_params)
     if params[:category_ids].present?    
       if @product.save
@@ -38,6 +38,7 @@ class ProductsController < ApplicationController
 
   def update    
     if @product.update(product_params)
+      @product.categories.delete_all
       add_images(@product)
       add_categories(@product)
       flash[:success]= 'Product was successfully updated.'
@@ -61,7 +62,7 @@ class ProductsController < ApplicationController
       @product = Product.find(params[:id])
     end
 
-    def product_params 
+    def product_params       
       params.require(:product).permit(:name, :serial_number, { :images=> []} , :category_ids)
     end
     

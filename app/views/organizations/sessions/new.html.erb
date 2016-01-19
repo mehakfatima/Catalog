@@ -29,11 +29,10 @@
           <% end -%>
         </div>    
         
-      <%#*<div class="forgot-txt pull-right">%>
-        <%#= render "admins/shared/links" %>
-      <%#*</div>%>
-      
-        <div class="clear"></div>
+        <div>
+          <%= render "admins/shared/links" %>
+        </div>
+        <div class="clear10"></div>
 
         <%= f.submit  t('.sign_in', :default => "LOGIN"), class: "btn btn-success btn-block" %> 
       <% end %>

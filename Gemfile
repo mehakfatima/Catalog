@@ -25,6 +25,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem "parsley-rails"
 # Database
 gem 'pg'
+gem 'pg_search'
 
 gem 'chosen-rails' , git: 'git://github.com/qpowell/chosen-rails.git'
 gem 'devise'

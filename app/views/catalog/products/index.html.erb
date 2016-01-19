@@ -1,0 +1,50 @@
+<section id="content">
+    <div class="container">
+
+    <div class="clear10"></div>            
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <h3 class="page-title">Products</h3>
+        </div>
+
+        <div class="col-md-8 text-right">
+            <%=  render "search" %>            
+        </div>
+
+    </div>
+    <div class="clear20"></div>
+
+      <div class="row grid-view">
+        <% if @products and @products.size!=0 %>
+           <% @products.each do |product| %>            
+            <%= link_to(catalog_product_path(product)) do %>
+              <div class="col-md-3 col-sm-6 col-xs-12">
+                  <div class="document-wrapper">
+                    <div class="document">
+                      <% if product.galleries.exists? %>                         
+                          <%= image_tag product.galleries.first.image.url(:medium) , class: "img-responsive"%>
+                      <%end%>
+                    </div> 
+                    <div class="text-center details">
+                      <%= product.name %>
+                    </div>                
+                  </div>
+              </div>
+            <%end%>
+          <% end %>     
+        <%end%>
+      </div>
+
+      <div class="clear20"></div>
+
+      <div class="text-center">
+        <%= will_paginate @product, renderer: BootstrapPagination::Rails %>
+      </div>
+
+      <div class="clear20"></div>
+
+   </div>
+</section>
+    <!-- content ends -->

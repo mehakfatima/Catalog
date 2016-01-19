@@ -1,26 +1,33 @@
-<div class="container-fluid">  
-  <div class="admin-content">    
-  <div class="row">    
-    <div class="col-md-6 col-sm-6"><h2>PRODUCT DETAILS</h2></div>
-    <div class="col-md-6 col-sm-6 text-right">
-      <div class="title-links">
-        <%= link_to 'PRODUCTS', admins_organization_products_path(params[:organization_id]) , class: "btn btn-primary btn-sm" %>
+<section id="content" >
+  <div class="container">
+    <div class="clear10"></div>      
+      <div class="row">            
+        <div class="col-md-12">
+            <h3 class="page-title">Product Details</h3>
+        </div>
       </div>
-    </div>
+      <div class="clear20"></div>
+      <div class="text-center"><h4><%= @product.name %></h4></div>
+      <div class="clear20"></div>
+
+      <div id="slider" class="flexslider slider-main">
+        <ul class="slides">
+           <% @product.galleries.each do |gallery| %>
+            <li>
+              <%= image_tag gallery.image.url(:original) %>
+            </li>
+           <% end %>                  
+        </ul>
+      </div>
+      <div id="carousel" class="flexslider">
+        <ul class="slides">
+          <% @product.galleries.each do |gallery| %>
+            <li>
+              <%= image_tag gallery.image.url(:medium) %>
+            </li>
+           <% end %>           
+        </ul>
+      </div>           
+      <div class="clear20"></div>
   </div>
-  <hr class="margin-top-10">
-  <div class="row">
-      <h3>Name: <u><%= @product.name %></u></h3>
-  </div>
-    
-  <div class="clear10"></div>
-  <div class="row">
-    <% @product.galleries.each do |gallery| %>
-      <%= image_tag gallery.image.url(:medium) %>
-      <% end %>
-  </div>
-  <div class="col-sm-offset-2 col-sm-8">
-  <%= link_to 'Edit', edit_product_path(@product) ,class: "btn btn-success btn-sm" %> 
-  </div>
-</div>
-</div>
+</section>

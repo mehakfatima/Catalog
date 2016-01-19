@@ -28,10 +28,10 @@
           <%= link_to t(".forgot_your_password", :default => "Forgot Password?"), new_password_path(resource_name) %><br />
           <% end -%>
         </div>    
-        
+      <div>
         <%= render "admins/shared/links" %>
-      
-        <div class="clear"></div>
+      </div>
+        <div class="clear10"></div>
 
         <%= f.submit  t('.sign_in', :default => "LOGIN"), class: "btn btn-success btn-block" %> 
       <% end %>

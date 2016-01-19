@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  root 'catalog#index'
-  get '/'           => 'catalog#index'
+  
+  root 'catalog/products#index'
+  get '/users'           => 'catalog#index'
   devise_for :admins, :controllers => { :sessions => "admins/sessions" }
   devise_for :organizations, controllers: {:sessions=>'organizations/sessions'}
   devise_for :users, controllers: {:sessions => 'users/sessions', :confirmations => 'users/confirmations',:registrations =>'users/registrations'} 
@@ -46,7 +47,9 @@ Rails.application.routes.draw do
   end
   
   
-  resources :catalog
+  namespace :catalog do
+    resources :products
+  end
 
   # Example resource route with sub-resources:
   #   resources :products do

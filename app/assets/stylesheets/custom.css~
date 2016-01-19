@@ -93,7 +93,7 @@ img { border:0; }
 .actions a .fa-trash { color: #bf4c41; }
 .actions a:hover, .actions a .fa-trash:hover { color: #000; }
 .table thead th { background-color: #eee; }
-.admin-product-img { max-width: 60px; height: auto; margin: 3px;}
+.admin-product-img { max-width: 60px; height: auto; }
 /* Dashboard CSS Starts */
 
 .alert-error {background-color: #f2dede;  border-color: #eed3d7;  color: #b94a48;  text-align: left; }

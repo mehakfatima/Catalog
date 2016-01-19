@@ -40,6 +40,7 @@ class Admins::ProductsController < ApplicationController
 
   def update    
     if @product.update(product_params)
+      @product.categories.delete_all
       add_images(@product)
       add_categories(@product)  
       flash[:success]= 'Product was successfully updated.'

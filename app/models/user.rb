@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   rolify 
 
   before_create :set_default_role
+  
+  validates :name, presence: true
 
   #include Authority::UserAbilities
   #has_many :organizations, foreign_key: :author_id

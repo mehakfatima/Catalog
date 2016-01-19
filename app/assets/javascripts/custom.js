@@ -41,11 +41,31 @@ $(".forgot-go").click(function(event){
 
 });
 /* Document Ready Ends */
-
+jQuery(function($){ $('.chosen').chosen(); });
 /* Window.Load Starts */
 $(window).load(function() { 
-
+  $('#carousel').flexslider({
+    animation: "slide",
+    controlNav: false,
+    animationLoop: false,
+    slideshow: false,
+    itemWidth: 210,
+    itemMargin: 5,
+    asNavFor: '#slider'
+  });
+ 
+  $('#slider').flexslider({
+    animation: "slide",
+    controlNav: false,
+    animationLoop: false,
+    slideshow: false,
+    sync: "#carousel"
+  });
 });
 /* Window.Load Ends */
 
-jQuery(function($){ $('.chosen').chosen(); });
+
+
+
+
+

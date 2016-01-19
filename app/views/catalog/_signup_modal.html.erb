@@ -1,10 +1,13 @@
-<div class="container">  
-  <%= bootstrap_devise_error_messages! %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4><%= t('.sign_up', :default => "Sign up") %></h4>
-    </div>
-    <div class="panel-body">
+<!-- Register Modal starts -->
+<div class="modal fade" id="createAccount" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Create Account</h4>
+      </div>
+      <div class="modal-body">
+        
       <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: { role: "form" }) do |f| %>
         <div class="form-group">
           <%= f.label "Full Name" %>
@@ -23,10 +26,14 @@
           <%= f.label :password_confirmation %>
           <%= f.password_field :password_confirmation, class: "form-control" %>
         </div>
+              
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <%= f.submit t('.sign_up', :default => "Sign up"), class: "btn btn-primary" %>
+      </div>
       <% end %>
-      <%= render "users/shared/links" %>
     </div>
   </div>
 </div>
-
+<!-- Register Modal ends -->

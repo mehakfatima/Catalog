@@ -2,41 +2,54 @@
 <html>
 <head>
   <title>Catalog</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application', media: 'all'%>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
   <%= csrf_meta_tags %>
 </head>
 <body>
     
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Catalog for User</a>
-    </div>
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
-      <% if user_signed_in? %>      
-        <p class="navbar-text navbar-right">Signed in as <%= current_user.email %>. <%= link_to "Sign out", destroy_user_session_path, :method => :delete, class: "navbar-link"  %></p>
-      <% else %> 
-         <%= link_to "Sign in", new_user_session_path , class: "btn btn-default navbar-btn" %> 
-      <% end %>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
+<!-- header starts -->
+    <section id="header">
+        <div class="container">
+            <div class="logo pull-left">
+              <a href="#"><img src="/assets/logo.png" class="img-responsive"></a>
+            </div>
+            <div class="account pull-right">
+                <% if user_signed_in? %> 
+                   <i class="fa fa-user fa-fw"></i> <%= current_user.email %>    
+                  <%= link_to '<i class="fa fa-sign-out fa-fw"></i> Sign out'.html_safe,  destroy_user_session_path, :method => :delete%>      
+                <% else %>
+                  <%= link_to '<i class="fa fa-user fa-fw"></i>CREATE ACCOUNT'.html_safe ,"#createAccount", "data-toggle" => "modal" %>
+                  <%= link_to '<i class="fa fa-key fa-fw"></i>SIGN IN'.html_safe, "#signIn", "data-toggle" => "modal" %>
+               <% end  %>    
+            </div>
+        </div>
+    </section>
+    <!-- header ends -->
 
-<%= yield %> 
-<hr>
-<!-- Footer -->
+    <!-- nav starts -->
+    <section id="navigation">
+        <div class="container">
+            <div class="navigation-bar">
+                <ul class="list-unstyled list-inline">
+                    <li class="current"><%= link_to "PRODUCTS", catalog_products_path %></li>
+                    <%#*<li><a href="#">PRODUCTS</a></li>%>
+                </ul>
+            </div>
+        </div>
+    </section>
+   
+  <%= render 'layouts/messages' %>
+  <%= render "catalog/login_modal" %>
+  <%= render "catalog/signup_modal" %>
+  <%= yield %> 
+    
+    
   <footer>
-    <div class="container">  
-      <div class="row">
-          <div class="col-md-12">
-              <p>Copyright &copy; Techverx 2016</p>
-          </div>
-      </div>
-    </div>
-      <!-- /.row -->
+    <div class="clear20"></div>
+    <div class="copyright text-center">&copy; 2016 Catalog. All Rights Reserved.</div>
+    <div class="clear20"></div>
   </footer>
 </body>
 </html>

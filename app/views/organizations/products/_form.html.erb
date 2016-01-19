@@ -14,38 +14,44 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Serial Number</label>
-    <div class="col-sm-8">
-      <%= f.text_field :serial_number, autofocus: true, class: "form-control" , required: true %>
-    </div>
-  </div>
+   <div class="form-group">
+        <label class="col-sm-2 control-label">Serial Number</label>
+        <div class="col-sm-8">
+            <%= f.text_field :serial_number, autofocus: true, class: "form-control" , required: true %>
+          </div>
+      </div>
 
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Product Name</label>
-    <div class="col-sm-8">
-      <%= f.text_field :name, autofocus: true, class: "form-control" , required: true %>
-    </div>
-  </div>
+      <div class="form-group">
+          <label class="col-sm-2 control-label">Product Name</label>
+          <div class="col-sm-8">
+              <%= f.text_field :name, autofocus: true, class: "form-control" , required: true %>
+            </div>
+        </div>
 
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Category</label>
-    <div class="col-sm-8">
-      <%= select_tag "category_ids", options_from_collection_for_select(Category.all, "id", "name"),multiple: true, autofocus: true, class: "chosen form-control" %>   
-    </div>
-  </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Category</label>
+            <div class="col-sm-8">
+                <%= select_tag "category_ids", options_from_collection_for_select(Category.all, "id", "name", @product.categories.map(&:id)), multiple: true, autofocus: true, class: "form-control chosen ", :required => true %>   
+              </div>
+          </div>
 
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Images</label>
-    <div class="col-sm-8">
-     <%= file_field_tag "images[]", type: :file,autofocus: true, multiple: true %>
-    </div>
-  </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Images</label>
+              <div class="col-sm-8">
+                <% if @product.galleries.exists? %>
+                  <% @product.galleries.each do |gallery| %>
+                      <%= image_tag gallery.image.url(:thumb) , class: "img-responsive admin-product-img pull-right"%>
+                  <% end %>
+                <% end %>
+                <%= file_field_tag "images[]", type: :file,autofocus: true, multiple: true, class: "form-control width-auto" %>
+              </div>
+          </div>
+
   
   <div class="actions form-group">
     <%= f.hidden_field :organization_id, value: @org_id %>
     <div class="col-sm-offset-2 col-sm-8">
-      <%= f.submit @product.new_record? ? 'create' : 'update', class: "btn btn-success btn-sm" %>     
+      <%= f.submit @product.new_record? ? 'CREATE PRODUCT' : 'UPDATE PRODUCT', class: "btn btn-success btn-sm" %>     
     </div>
   </div>
 <% end %>
