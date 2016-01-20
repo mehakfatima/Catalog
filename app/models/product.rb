@@ -24,26 +24,4 @@ class Product < ActiveRecord::Base
       organization.name
     end
   end
-  
-  
-  
-  # Naive approach
-  def self.rebuild_pg_search_documents
-    find_each { |record| record.update_pg_search_document }
-  end
-
-  # More sophisticated approach
-  def self.rebuild_pg_search_documents
-    connection.execute <<-SQL
-     INSERT INTO pg_search_documents (searchable_type, searchable_id, content, created_at, updated_at)
-       SELECT 'Movie' AS searchable_type,
-              movies.id AS searchable_id,
-              (movies.name || ' ' || directors.name) AS content,
-              now() AS created_at,
-              now() AS updated_at
-       FROM movies
-       LEFT JOIN directors
-         ON directors.id = movies.director_id
-    SQL
-  end
 end

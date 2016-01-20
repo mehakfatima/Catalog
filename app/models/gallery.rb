@@ -4,9 +4,10 @@ class Gallery < ActiveRecord::Base
  
   has_attached_file :image, 
     styles: { medium: "300x300>", thumb: "100x100>" }, 
-#    :path => ":rails_root/public/images/:id/:filename",
-    default_url: "/images/missing.png"
+    :storage => :s3,
+    :bucket => "catalog-mehak"
   
+
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
   do_not_validate_attachment_file_type :image
