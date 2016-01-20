@@ -9,16 +9,17 @@
     <h3>RESEND CONFIRMATION INSTRUCTIONS</h3>
     
     <div class="form-group">
-    <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post, role: "form" }) do |f| %>
+    <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post, role: "form" , 'data-parsley-validate' => ''}) do |f| %>
       <div class="form-group">
         <%= f.label :email %>
-        <%= f.email_field :email, autofocus: true, class: "form-control"  %>
+        <%= f.email_field :email, autofocus: true, class: "form-control" , required: true, 'data-parsley-trigger' => 'change' %>
       </div>
 
       <%= f.submit t('.resend_confirmation_instructions', :default => 'Resend confirmation instructions'), class: "btn btn-success btn-block" %>
       <% end %>
     </div>
-    <%= render "admins/shared/links" %>
+    <%= render "users/shared/links" %>
+
   </div>  
   </div>
 </div>

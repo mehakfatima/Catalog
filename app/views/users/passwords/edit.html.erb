@@ -5,21 +5,22 @@
     <h4><%= t('.change_your_password', :default => 'Change your password') %></h4>
   </div>
   <div class="panel-body">
-    <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put, role: "form" }) do |f| %>
+    <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put, role: "form" , 'data-parsley-validate' => ''}) do |f| %>
       <%= f.hidden_field :reset_password_token %>
 
       <div class="form-group">
         <%= f.label :password, t('.new_password', :default => 'New password') %>
-        <%= f.password_field :password, autofocus: true, class: "form-control"  %>
+        <%= f.password_field :password, autofocus: true, class: "form-control" , required: true, id: 'pw', 'data-parsley-min'=>"8",'data-parsley-trigger' => 'blur' %>
       </div>
 
       <div class="form-group">
-        <%= f.label :password_confirmation, t('.confirm_new_password', :default => 'Confirm new password') %>
-        <%= f.password_field :password_confirmation, class: "form-control"  %>
+        <%= f.label :password_confirmation, t('.confirm_new_password', :default => 'Confirm new password') ,  %>
+        <%= f.password_field :password_confirmation, class: "form-control" , required: true, 'data-parsley-min'=>"8" %>
       </div>
-
-      <%= f.submit t('.change_my_password', :default => 'Change my password'), class: "btn btn-primary" %>
-    <% end %>
+      <div class="clear"></div>        
+      <%= f.submit t('.change_my_password', :default => 'Change my password'), class: "btn btn-success btn-block" %>
+      <% end %>
+      <%= render "users/shared/links" %>
   </div>
 </div>
 </div>

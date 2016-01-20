@@ -1,6 +1,6 @@
 <hr class="margin-top-10">
 <div class="clear10"></div>
-<%= form_for @product, html: { multipart: true , class: "form-horizontal", 'data-parsley-validate' => ''} do |f| %>
+<%= form_for [:admins, @organization ,@product], html: { multipart: true , class: "form-horizontal", 'data-parsley-validate' => ''} do |f| %>
     <% if @product.errors.any? %>
       <div id="error_explanation" class="alert alert-danger alert-dismissible">
           <h4><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h4>
@@ -17,7 +17,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">Serial Number</label>
         <div class="col-sm-8">
-            <%= f.text_field :serial_number, autofocus: true, class: "form-control" , required: true, 'data-parsley-trigger' => 'blur', 'data-parsley-type' => "integer" %>
+            <%= f.text_field :serial_number, autofocus: true, class: "form-control" , required: true, 'data-parsley-trigger' => 'blur', 'data-parsley-type' => "digits" %>
           </div>
       </div>
 
