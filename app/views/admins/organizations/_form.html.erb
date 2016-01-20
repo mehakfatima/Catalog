@@ -1,6 +1,6 @@
 <hr class="margin-top-10">
 <div class="clear10"></div>
-<%= form_for [:admins , @organization], html: { class: "form-horizontal"} do |f| %>
+<%= form_for [:admins , @organization], html: { class: "form-horizontal" ,'data-parsley-validate' => ''} do |f| %>
   <% if @organization.errors.any? %>
     <div id="error_explanation" class="alert alert-danger alert-dismissible">
       <h4><%= pluralize(@organization.errors.count, "error") %> prohibited this organization from being saved:</h4>
@@ -17,33 +17,33 @@
   <div class="form-group">
     <label class="col-sm-2 control-label">Organization Name</label>
     <div class="col-sm-8">
-      <%= f.text_field :name, autofocus: true, class: "form-control" %>
+      <%= f.text_field :name, autofocus: true, class: "form-control", required: true, 'data-parsley-trigger' => 'blur' %>
     </div>
   </div>
 
   <div class="form-group">
     <label class="col-sm-2 control-label">Email</label>
     <div class="col-sm-8">
-      <%= f.email_field :email, autofocus: true, class: "form-control" %>
+      <%= f.email_field :email, autofocus: true, class: "form-control" , required: true, 'data-parsley-trigger' => 'change'%>
     </div>
   </div>
 
   <div class="form-group">
     <label class="col-sm-2 control-label">Password</label>
     <div class="col-sm-8">
-      <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+      <%= f.password_field :password, autocomplete: "off", class: "form-control" , required: true, id: 'pw', 'data-parsley-min'=>"8",'data-parsley-trigger' => 'blur'%>
     </div>
   </div>
 
   <div class="form-group">
     <label class="col-sm-2 control-label">Confirm Password</label>
     <div class="col-sm-8">
-      <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+      <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" , required: true, 'data-parsley-min'=>"8" , 'parsley-equalto' => '#pw', 'data-parsley-trigger' => 'keyup'%>
     </div>
   </div>
   <div class="actions form-group">
     <div class="col-sm-offset-2 col-sm-8">
-      <%= f.submit @organization.new_record? ? 'CREATE ORGANIZATION' : 'UPDATE ORGANIZATION', class: "btn btn-success btn-sm" %>     
+      <%= f.submit @organization.new_record? ? 'CREATE ORGANIZATION' : 'UPDATE ORGANIZATION', class: "btn btn-success btn-sm"%>     
     </div>
   </div>
 <% end %>

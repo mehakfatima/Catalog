@@ -74,6 +74,10 @@ img { border:0; }
 .signup-area, .forgot-area { display: none; }
 /* Admin CSS Ends */
 
+.parsley-error-list li { color: red !important; }
+.parsley-required {color: red !important;}
+.parsley-type {color: red !important;}
+.parsley-min {color: red !important;}
 
 /* Dashboard CSS Starts */
 .admin-header { background-color: #23518c; min-height: 80px; }

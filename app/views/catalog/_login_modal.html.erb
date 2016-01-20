@@ -8,14 +8,14 @@
       </div>
       <div class="modal-body">
         <div class="box-signin">
-          <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" }) do |f| %>        
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" , 'data-parsley-validate' => ''}) do |f| %>        
             <div class="form-group">
               <%= f.label :email %>
-              <%= f.email_field :email, autofocus: true, class: "form-control" %>
+              <%= f.email_field :email, autofocus: true, class: "form-control" ,required: true, 'data-parsley-trigger' => 'change' %>
             </div>
             <div class="form-group">
               <%= f.label :password %>
-              <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+              <%= f.password_field :password, autocomplete: "off", class: "form-control" , required: true, 'data-parsley-min'=>"8",'data-parsley-trigger' => 'blur' %>
             </div>
             <div class="checkbox inline">
               <% if devise_mapping.rememberable? %>        
@@ -39,14 +39,14 @@
         <div class="clear"></div>
 
         <div class="box-forgot">
-          <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, role: "form" }) do |f| %>
+          <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, role: "form" , 'data-parsley-validate' => ''}) do |f| %>
             <div class="form-group">
               <%= f.label :email %>
-              <%= f.email_field :email, autofocus: true, class: "form-control" %>
+              <%= f.email_field :email, autofocus: true, class: "form-control",required: true, 'data-parsley-trigger' => 'change' %>
             </div> 
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <%= f.submit  t('.send_me_reset_password_instructions', :default => "Send me reset password instructions"), class: "btn btn-primary btn-forgot" %> 
+              <%= f.submit  t('.send_me_reset_password_instructions', :default => "Send me reset password instructions"), class: "btn btn-primary btn-forgot"%> 
             </div>
           <%  end %>
             <div class="clear"></div>

@@ -1,29 +1,29 @@
-<div class="box-signin">
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" }) do |f| %>        
-    <div class="form-group">
-      <%= f.label :email %>
-      <%= f.email_field :email, autofocus: true, class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= f.label :password %>
-      <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
-    </div>
-    <div class="checkbox inline">
-      <% if devise_mapping.rememberable? %>        
-        <label>
-          <%= f.check_box :remember_me %>
-          <%= f.label :remember_me %>
-        </label>        
-     <% end %>
-    </div>
-    <div class="forgot-txt pull-right">
-      <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
-      <%= link_to t(".forgot_your_password", :default => "Forgot Password?"), new_password_path(resource_name) %><br />
-      <% end -%>
-    </div>    
-    <div class="clear"></div>
-
-    <%= f.submit  t('.sign_in', :default => "LOGIN"), class: "btn btn-success btn-block" %> 
-  <% end %>
-    <%= render "users/shared/links" %>
+<div class="container">        
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4><%= t('.sign_in', :default => "Sign in") %></h4>
+  </div>
+  <div class="panel-body">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" ,'data-parsley-validate' => ''}) do |f| %>
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.email_field :email, autofocus: true, class: "form-control" , required: true, 'data-parsley-trigger' => 'change'%>
+      </div>
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: "off", class: "form-control", required: true, 'data-parsley-min'=>"8",'data-parsley-trigger' => 'blur' %>
+      </div>
+      <% if devise_mapping.rememberable? %>
+        <div class="checkbox">
+          <label>
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+          </label>
+        </div>
+        <% end %>
+      <%= f.submit  t('.sign_in', :default => "Sign in"), class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+<%= render "devise/shared/links" %>
 </div>

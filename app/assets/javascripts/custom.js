@@ -62,6 +62,9 @@ $(window).load(function() {
     sync: "#carousel"
   });
 });
+
+
+
 /* Window.Load Ends */
 
 

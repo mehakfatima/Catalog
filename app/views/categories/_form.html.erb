@@ -1,7 +1,7 @@
 <hr class="margin-top-10">
 <div class="clear10"></div>
 
-<%= form_for @category, html: { class: 'form-horizontal'} do |f| %>
+<%= form_for @category, html: { class: 'form-horizontal' , 'data-parsley-validate' => ''} do |f| %>
   <% if @category.errors.any? %>
     <div id="error_explanation" class="alert alert-danger alert-dismissible">
       <h4><%= pluralize(@category.errors.count, "error") %> prohibited this category from being saved:</h4>
@@ -18,7 +18,7 @@
   <div class="form-group">
     <label class="col-sm-2 control-label">Category Name</label>
     <div class="col-sm-8">
-      <%= f.text_field :name, autofocus: true, class: "form-control" , required: true %>
+      <%= f.text_field :name, autofocus: true, class: "form-control" , required: true, 'data-parsley-trigger' => 'blur' %>
     </div>
   </div>
   

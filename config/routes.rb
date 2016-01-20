@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
   root 'catalog/products#index'
-  get '/users'           => 'catalog#index'
+  get '/users'           => 'catalog/products#index'
   devise_for :admins, :controllers => { :sessions => "admins/sessions" }
   devise_for :organizations, controllers: {:sessions=>'organizations/sessions'}
   devise_for :users, controllers: {:sessions => 'users/sessions', :confirmations => 'users/confirmations',:registrations =>'users/registrations'} 
