@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 
 module CatalogNew
   class Application < Rails::Application
+       config.serve_static_assets = true
        config.assets.enabled = true
        config.assets.paths << "#{Rails.root}/app/assets/fonts" 
        config.assets.precompile += %w( .svg .eot .woff .ttf )
