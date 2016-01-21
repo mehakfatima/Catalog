@@ -50,7 +50,7 @@
           </div>
 
           <div class="actions form-group">
-              <%= f.hidden_field :organization_id, value: @org_id %>
+              <%= f.hidden_field :organization_id, value: @organization.id %>
               <div class="col-sm-offset-2 col-sm-8">
                   <%= f.submit @product.new_record? ? 'CREATE PRODUCT' : 'UPDATE PRODUCT', class: "btn btn-success btn-sm"%>     
                 </div>
