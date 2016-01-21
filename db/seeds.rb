@@ -20,6 +20,7 @@ unless User.find_by_email('admin@techverx.com').present?
               :password_confirmation => '12345678'})
   admin_user.skip_confirmation!
   admin_user.save
+  admin_user.remove_role :user
 	admin_user.roles << admin_role
 	puts "Admin created....skipping"
 else
