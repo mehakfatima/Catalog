@@ -14,7 +14,8 @@ end
 unless User.find_by_email('admin@techverx.com').present?
 	admin_role = Role.find_by_name("admin")  
 	# create an Administration user  
-  admin_user = User.new({ :email => 'admin@techverx.com', 
+  admin_user = User.new({ :name => 'Admin',
+              :email => 'admin@techverx.com', 
               :password => '12345678', 
               :password_confirmation => '12345678'})
   admin_user.skip_confirmation!

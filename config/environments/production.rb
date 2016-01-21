@@ -76,4 +76,16 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+   config.action_mailer.default_url_options = { :host => 'catalog-products.herokuapp.com' }
+   
+  config.action_mailer.smtp_settings = {
+      :user_name => 'mehak@gems.techverx.com',
+      :password => 'pagal daddu',
+      :domain               => 'techverx.com',
+      :address              => "smtp.gmail.com",
+      :port                 => 465,
+      :authentication       => :login,
+      :enable_starttls_auto => true, 
+      :tls => true 
+    }
 end
