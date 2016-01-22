@@ -1,16 +1,16 @@
 <%= form_for :product, :url => catalog_products_path, :html => {:method => :get, class: "form-inline"} do |f| %>
 
   <div class="form-group">
-      <%= f.text_field :name,  class: "form-control inline width-auto input-sm", :placeholder => "Name" %>
+      <%= f.text_field :name,  class: "form-control inline width-auto ", :placeholder => "Name" %>
     </div>
 
 
   <div class="form-group">
-      <%= f.select("category_id", Category.all.collect {|p| [ p.name, p.id ] }, {  prompt: 'Select Category'  }, class: "form-control inline width-auto input-sm" )%>
+      <%= f.select("category_id", Category.all.collect {|p| [ p.name, p.id ] }, {  prompt: 'Select Category'  }, class: "form-control inline width-auto chosen-select" )%>
   </div>
 
   <div class="form-group">
-      <%=  f.select("organization_id", Organization.all.collect {|p| [ p.name, p.id ] }, {  prompt: 'Select Organization' }, class: "form-control inline width-auto input-sm" ) %>
+      <%=  f.select("organization_id", Organization.all.collect {|p| [ p.name, p.id ] }, {  prompt: 'Select Organization' }, class: "form-control input-lg inline width-auto chosen-select" ) %>
   </div>
 
   <%= f.submit "Search", class: "btn btn-primary btn-sm" %>
