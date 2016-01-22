@@ -3,7 +3,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close modalclose" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Sign in</h4>
       </div>
       <div class="modal-body">
@@ -25,9 +25,10 @@
                 </label>        
              <% end %>
             </div>
-            <div class="forgot-txt pull-right">
-              <div class="forgot-txt pull-right"><a href="#">Forgot Password</a></div>              
-            </div>    
+             <div class="forgot-txt pull-right">
+                 <a href="#">Forgot Password</a>
+             </div>              
+   
             <div class="clear"></div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -47,7 +48,7 @@
              <div class="signin-txt pull-left"><a href="#">Sign in</a></div>
              <div class="clear10"></div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-default modalclose" data-dismiss="modal">Close</button>
               <%= f.submit  t('.send_me_reset_password_instructions', :default => "Send me reset password instructions"), class: "btn btn-primary btn-forgot"%> 
             </div>
           <%  end %>

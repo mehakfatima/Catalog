@@ -6,16 +6,27 @@ $(document).ready(function(){
 $(".forgot-txt").click(function(){
     $(".box-signin").hide();
     $(".btn-signin").hide();
+    $("#myModalLabel").text('Forgot Password')
     $(".box-forgot").show();
     $(".btn-forgot").show();
 });
 
 $(".signin-txt").click(function(){
-	$(".box-forgot").hide();
-    $(".btn-forgot").hide();
+    $(".box-forgot").hide();
+    $(".btn-forgot").hide(); 
+    $("#myModalLabel").text('Sign In')
     $(".box-signin").show();
     $(".btn-signin").show();
 });
+
+$(".modalclose").click(function(){
+    $(".box-forgot").hide();
+    $(".btn-forgot").hide();
+    $("#myModalLabel").text('Sign In')
+    $(".box-signin").show();
+    $(".btn-signin").show();
+});
+
 
 
 $(".signin-go").click(function(event){
@@ -42,7 +53,7 @@ $(".forgot-go").click(function(event){
 });
 /* Document Ready Ends */
 jQuery(function($){ $('.chosen').chosen({width: "100%"}); });
-jQuery(function($){ $('.chosen-select').chosen({width: "100%"}); });
+jQuery(function($){ $('.chosen-select').chosen({width: "200px" }); });
 /* Window.Load Starts */
 $(window).load(function() { 
   $('#carousel').flexslider({
