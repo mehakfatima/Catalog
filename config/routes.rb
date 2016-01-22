@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   devise_for :organizations, controllers: {:sessions=>'organizations/sessions'}
   devise_for :users, controllers: {:sessions => 'users/sessions', :confirmations => 'users/confirmations',:registrations =>'users/registrations'} 
 
-  get '*path' => redirect('/')
+
   scope '/admin' do
     as :admin do
       get '/'           => 'admins/admins#index'
@@ -52,6 +52,7 @@ Rails.application.routes.draw do
     resources :products
   end
 
+    get '*path' => redirect('/')
   # Example resource route with sub-resources:
   #   resources :products do
   #     resources :comments, :sales
