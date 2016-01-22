@@ -41,7 +41,7 @@ $(".forgot-go").click(function(event){
 
 });
 /* Document Ready Ends */
-jQuery(function($){ $('.chosen').chosen(); });
+jQuery(function($){ $('.chosen').chosen({width: "100%"}); });
 /* Window.Load Starts */
 $(window).load(function() { 
   $('#carousel').flexslider({
