@@ -7,6 +7,9 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
+<style>
+  .parsley-errors-list{ color:red;  margin-top: 7px;}    
+</style>
 <body  class="admin">
     
 <% if organization_signed_in? %>      

@@ -11,11 +11,12 @@
           <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" , 'data-parsley-validate' => ''}) do |f| %>        
             <div class="form-group">
               <%= f.label :email %>
-              <%= f.email_field :email, autofocus: true, class: "form-control" ,required: true, 'data-parsley-trigger' => 'change' %>
+              <%= f.email_field :email, autofocus: true, class: "form-control" ,required: true, 'data-parsley-trigger' => 'change',  'data-parsley-required-message'=>"Please insert your Email" %>
             </div>
             <div class="form-group">
               <%= f.label :password %>
-              <%= f.password_field :password, autocomplete: "off", class: "form-control" , required: true, 'data-parsley-min'=>"8",'data-parsley-trigger' => 'blur' %>
+              <%= f.password_field :password, autocomplete: "off", class: "form-control" , required: true, 'data-parsley-trigger' => 'blur' ,
+                  'data-parsley-required-message'=>"Please insert your Password" , minlength: 8, name: 'password'%>
             </div>
             <div class="checkbox inline">
               <% if devise_mapping.rememberable? %>        
@@ -43,7 +44,7 @@
           <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, role: "form" , 'data-parsley-validate' => ''}) do |f| %>
             <div class="form-group">
               <%= f.label :email %>
-              <%= f.email_field :email, autofocus: true, class: "form-control",required: true, 'data-parsley-trigger' => 'change' %>
+              <%= f.email_field :email, autofocus: true, class: "form-control",required: true,'data-parsley-required-message'=>"Please insert your Email", 'data-parsley-trigger' => 'change' %>
             </div> 
              <div class="signin-txt pull-left"><a href="#">Sign in</a></div>
              <div class="clear10"></div>

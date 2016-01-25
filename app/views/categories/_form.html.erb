@@ -18,7 +18,8 @@
   <div class="form-group">
     <label class="col-sm-2 control-label">Category Name</label>
     <div class="col-sm-8">
-      <%= f.text_field :name, autofocus: true, class: "form-control" , required: true, 'data-parsley-trigger' => 'blur' %>
+      <%= f.text_field :name, autofocus: true, class: "form-control" , required: true, 'data-parsley-trigger' => 'blur' , pattern: '/^[a-zA-Z ]*$/' ,
+          'data-parsley-required-message'=>"Please insert Category", 'data-parsley-pattern-message'=>"Alphabets only"%>
     </div>
   </div>
   

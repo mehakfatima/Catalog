@@ -10,8 +10,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
    def create
     super
-    
-     debugger
    end
 
   # GET /resource/edit

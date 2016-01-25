@@ -11,12 +11,12 @@
         <div class="form-group">
           <%= f.label :email %>
           <i class="fa fa-user fa-fw"></i>
-          <%= f.email_field :email, autofocus: true, class: "form-control" , required: true, 'data-parsley-trigger' => 'change' %>
+          <%= f.email_field :email, autofocus: true, class: "form-control" , required: true, 'data-parsley-trigger' => 'change', 'data-parsley-required-message'=>"Please insert your Email"%>
         </div>
         <div class="form-group">
           <%= f.label :password %>
           <i class="fa fa-key fa-fw"></i>
-          <%= f.password_field :password, autocomplete: "off", class: "form-control", required: true, 'data-parsley-min'=>"8",'data-parsley-trigger' => 'blur' %>
+          <%= f.password_field :password, autocomplete: "off", class: "form-control", required: true, 'data-parsley-min'=>"8",'data-parsley-trigger' => 'blur', 'data-parsley-required-message'=>"Please insert your Password" %>
         </div>
         <div class="checkbox inline">
           <% if devise_mapping.rememberable? %>        

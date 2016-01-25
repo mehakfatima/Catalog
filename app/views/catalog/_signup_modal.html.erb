@@ -11,20 +11,23 @@
       <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: { role: "form" , 'data-parsley-validate' => ''}) do |f| %>
         <div class="form-group">
           <%= f.label "Full Name" %>
-          <%= f.text_field :name, autofocus: true, class: "form-control" , required: true, 'data-parsley-trigger' => 'blur' %>
+          <%= f.text_field :name, autofocus: true, class: "form-control", pattern: '/^[a-zA-Z ]*$/' , minlength: 5 ,'data-parsley-pattern-message'=>"Alphabets only",
+              'data-parsley-required-message'=>"Please insert your Name" ,required: true, 'data-parsley-trigger' => 'blur' %>
         </div>
                
         <div class="form-group">
           <%= f.label :email %>
-          <%= f.email_field :email, autofocus: true, class: "form-control" , required: true, 'data-parsley-trigger' => 'change'%>
+          <%= f.email_field :email, autofocus: true, class: "form-control" , required: true, 'data-parsley-trigger' => 'change', 'data-parsley-required-message'=>"Please insert your Email"%>
         </div>
         <div class="form-group">
           <%= f.label :password %><br />
-         <%= f.password_field :password, autocomplete: "off", class: "form-control" , required: true, id: 'pw', 'data-parsley-min'=>"8",'data-parsley-trigger' => 'blur'%>
+         <%= f.password_field :password, autocomplete: "off", class: "form-control" , required: true, 'data-parsley-required-message'=>"Please insert your password",
+             id: "password", minlength: 8 ,'data-parsley-trigger' => 'blur'%>
         </div>
         <div class="form-group">
           <%= f.label :password_confirmation %>
-          <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" , required: true, 'data-parsley-min'=>"8" , 'parsley-equalto' => '#pw', 'data-parsley-trigger' => 'keyup'%>
+          <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" , id: "confirm_password", 'data-parsley-equalto'=>"#password",
+              'data-parsley-trigger' => 'keyup','data-parsley-equalto-message'=>"Password doesnot match" %>
         </div>        
       </div>
       <div class="modal-footer">
