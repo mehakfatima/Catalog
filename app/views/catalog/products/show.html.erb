@@ -7,7 +7,7 @@
         </div>
         <div class="col-md-6 text-right">
           <div class="title-links">
-            <%= link_to 'BACK TO CATALOG', root_path , class: "btn btn-primary btn-sm" %>
+            <%= link_to 'X', root_path , class: "btn btn-primary btn-sm", style: "z-index: 9999;position: relative;" %>
           </div>
         </div>
       <div class="clear20"></div>
@@ -112,6 +112,9 @@
               }
       }
    });
+   $(".magazine").bind("end", function(event, pageObject, turned){
+    alert("turn.end:" +pageObject.page);
+  });
 }
 
   // Load the HTML4 version if there's not CSS transform
