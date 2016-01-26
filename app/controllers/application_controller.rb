@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
 
   #include DeviseHelper
   layout :layout_by_resource
-  protect_from_forgery with: :null_sessiony
+  protect_from_forgery with: :null_session
   
   def after_sign_in_path_for(resource_or_scope)
     if resource_name == :admin
