@@ -14,10 +14,15 @@
 //= require jquery
 //= require jquery_ujs
 //= require chosen-jquery
+//= modernizr.2.5.3.min
+//= hash
 //= require products
 //= jquery-1.11.3.min
 //= bootstrap.min
 //= jquery.flexslider-min
 //= custom
 //= require parsley
+//= turn.html4.min
+//= zoom.min
+//= magazine
 //= require_tree .

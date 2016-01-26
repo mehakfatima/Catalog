@@ -13,25 +13,124 @@
       <div class="clear20"></div>
       <div class="text-center"><h4><%= @product.name %></h4></div>
       <div class="clear20"></div>
+      <div class='product-overlay' style='position: fixed; width: 100%; height: 100%; left: 0; right: 0; top: 0; bottom: 0; z-index: 998;background:rgba(0,0,0,0.6); '></div>
+      <div id="canvas" style="z-index: 999; position: relative; top: 80px; ">
+        <div class="zoom-icon zoom-icon-in"></div>
 
-      <div id="slider" class="flexslider slider-main">
-        <ul class="slides">
-           <% @product.galleries.each do |gallery| %>
-            <li>
-              <%= image_tag gallery.image.url(:original) %>
-            </li>
-           <% end %>                  
-        </ul>
-      </div>
-      <div id="carousel" class="flexslider">
-        <ul class="slides">
-          <% @product.galleries.each do |gallery| %>
-            <li>
-              <%= image_tag gallery.image.url(:medium) %>
-            </li>
-           <% end %>           
-        </ul>
-      </div>           
-      <div class="clear20"></div>
+        <div class="magazine-viewport">
+          <div class="container">
+            <div class="magazine" style="overflow: hidden;">
+                <% @product.galleries.each do |gallery| %>   
+                  <div><span class="text">
+                    <%= image_tag gallery.image.url(:medium), class: 'product_image' %>
+                  </span></div>
+                <% end %>
+            </div>
+          </div>
+            <div class="bottom" style="top:300px; z-index: 9999;">
+              <div id="slider-bar" class="turnjs-slider">
+                  <div id="slider"></div>
+              </div>
+          </div>
+        </div>  
+        </div>
+    </div>
+      
+    <div class="clear20"></div>
   </div>
 </section>
+
+<style>
+  .product_image{ margin-left: 30px !important; 
+    margin-top: 130px !important;}
+</style>
+
+
+<script type="text/javascript" >
+  function loadApp() {
+   // Create the flipbook
+   var flipbook = $('.magazine');
+
+    // Check if the CSS was already loaded
+
+    if (flipbook.width()==0 || flipbook.height()==0) {
+            setTimeout(loadApp, 10);
+            return;
+    }
+	
+   flipbook.turn({
+        // Width
+        width:922,
+
+        // Height
+        height:600,
+
+        // Elevation
+        elevation: 30,
+
+        // Enable gradients
+        gradients: true,
+
+        // Auto center this flipbook
+        autoCenter: true,
+        when: {
+              turning: function(event, page, view) {
+
+                var book = $(this),
+                currentPage = book.turn('page'),
+                pages = book.turn('pages');
+
+                // Update the current URI
+
+                Hash.go('page/' + page).update();
+
+                // Show and hide navigation buttons
+
+                disableControls(page);
+              },
+
+              turned: function(event, page, view) {
+
+                disableControls(page);
+
+                $(this).turn('center');
+
+                $('#slider').slider('value', getViewNumber($(this), page));
+
+                if (page==1) { 
+                        $(this).turn('peel', 'br');
+                }
+
+              },
+
+              missing: function (event, pages) {
+
+                // Add pages that aren't in the magazine
+
+                for (var i = 0; i < pages.length; i++)
+                        addPage(pages[i], $(this));
+              }
+      }
+   });
+}
+
+  // Load the HTML4 version if there's not CSS transform
+  $(document).ready(function() {  
+     yepnope({
+        test : Modernizr.csstransforms,
+        <%#*yep: ['../../assets/turn.js'],%>
+        <%#*nope: ['../../assets/turn.html4.min.js'],%>
+        <%#*both: ['../../assets/magazine.css'],%>
+        <%#*complete: loadApp%>
+	<%#*yep: ['../../assets/turn.js'],%>
+	<%#*nope: ['../../assets/turn.html4.min.js'],%>
+	<%#*both: ['../../assets/zoom.min.js', '../../assets/magazine.js', '../../assets/magazine.css'],%>
+        <%#*complete: loadApp%>
+          
+        yep: ['../../assets/turn.min.js'],
+	nope: ['../../assets/turn.html4.min.js', '../../assets/jquery.ui.html4.css'],
+	both: ['../../assets/zoom.min.js', '../../assets/jquery.ui.css', '../../assets/magazine.js', '../../assets/magazine.css'],
+	complete: loadApp 
+     });
+  });  
+</script>
