@@ -6,12 +6,49 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= stylesheet_link_tag    'application', media: 'all'%>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application'%>
   <link href='http://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
   <%= csrf_meta_tags %>
 </head>
 <style>
   .parsley-errors-list{ color:red;  margin-top: 7px;}    
+  body::after, body::before {
+  /* these are the 2 half blocks which cover the content once the animation is triggered */
+  height: 50vh;
+  width: 100%;
+  position: fixed;
+  left: 0;
+}
+body::before {
+  top: 0;
+  transform: translateY(-100%);
+}
+body::after {
+  bottom: 0;
+  transform: translateY(100%);
+}
+body.page-is-changing::after, body.page-is-changing::before {
+  transform: translateY(0);
+}
+.cd-loading-bar {
+  /* this is the loading bar - visible while switching from one page to the following one */
+  position: fixed;
+  height: 2px;
+  width: 90%;
+}
+.cd-loading-bar::before {
+  /* this is the progress bar inside the loading bar */
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+.page-is-changing .cd-loading-bar::before {
+  transform: scaleX(1);
+}
 </style>
 <body>
     
@@ -52,7 +89,7 @@
   <%= yield %> 
     
     
-  <footer>
+  <footer id='foo'>
     <div class="clear20"></div>
     <div class="copyright text-center">&copy; 2016 Catalog. All Rights Reserved.</div>
     <div class="clear20"></div>

@@ -17,7 +17,7 @@
   <div class="form-group">
     <label class="col-sm-2 control-label">Organization Name</label>
     <div class="col-sm-8">
-      <%= f.text_field :name, autofocus: true, class: "form-control", pattern: '/^[a-zA-Z ]*$/' , minlength: 5 ,'data-parsley-pattern-message'=>"Alphabets only",
+      <%= f.text_field :name, autofocus: true, class: "form-control",  minlength: 2 ,
               'data-parsley-required-message'=>"Please insert Organization Name" ,required: true, 'data-parsley-trigger' => 'blur' %>
     </div>
   </div>

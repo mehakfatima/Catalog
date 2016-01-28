@@ -1,54 +1,49 @@
-<section id="content" >
-  <div class="container">
-    <div class="clear10"></div>      
-      <div class="row">            
-        <div class="col-md-6">
-            <h3 class="page-title">Product Details</h3>
-        </div>
-        <div class="col-md-6 text-right">
-          <div class="title-links">
-            <%= link_to 'X', root_path , class: "btn btn-primary btn-sm", style: "z-index: 9999;position: relative;" %>
-          </div>
-        </div>
-      <div class="clear20"></div>
-      <div class="text-center"><h4><%= @product.name %></h4></div>
-      <div class="clear20"></div>
-      <div class='product-overlay' style='position: fixed; width: 100%; height: 100%; left: 0; right: 0; top: 0; bottom: 0; z-index: 998;background:rgba(0,0,0,0.6); '></div>
-      <div id="canvas" style="z-index: 999; position: relative; top: 80px; ">
-        <div class="zoom-icon zoom-icon-in"></div>
-
-        <div class="magazine-viewport">
-          <div class="container">
-            <div class="magazine" style="overflow: hidden;">
-                <% @product.galleries.each do |gallery| %>   
-                  <div><span class="text">
-                    <%= image_tag gallery.image.url(:medium), class: 'product_image' %>
-                  </span></div>
-                <% end %>
-            </div>
-          </div>
-            <div class="bottom" style="top:300px; z-index: 9999;">
-              <div id="slider-bar" class="turnjs-slider">
-                  <div id="slider"></div>
-              </div>
-          </div>
-        </div>  
-        </div>
-    </div>
-      
-    <div class="clear20"></div>
+<div class='product-overlay'></div>
+<div class="clear20"></div>
+<div id="canvas">
+  <div class='close-btn'>
+    <%= link_to image_tag(asset_path('actions-button-cancel-icon.png'), :border => 0, class: 'close'), root_path %>
   </div>
-</section>
+  <%#*<div class="zoom-icon zoom-icon-in"></div>%>
+  <div class="magazine-viewport">
+    <div class="container">
+      <div class="magazine" >
+           <div class="hard" depth="5">
+               <div class='info-border'>
+                  <div class="product-info">
+                     <h3 class="page-title"><%= @product.name %></h3>
+                     <h3 class="page-title"><%= @product.serial_number %></h3>
+                     <%  if @product.organization_name %>
+                     <h3 class="page-title"><%= @product.organization_name %></h3>
+                     <%end%>
+                  </div>
+               </div>
+            </div>
+          <div class="hard inner-front"></div>
+          <% @product.galleries.each do |gallery| %>   
+          <div class="mypage" depth="50"><span class="text">
+              <%= image_tag gallery.image.url(:medium), class: 'product_image' %>
+            </span></div>
+          <% end %>
+          <div class="hard inner-back"></div>
+          <div class="hard back"></div>          
+      </div>
+    </div>     
+  </div>  
+</div>
 
 <style>
-  .product_image{ margin-left: 30px !important; 
-    margin-top: 130px !important;}
+  .magazine .hard {background-image:  url("<%= asset_path('front-cover.png') %>")}
+  .magazine .back {background-image:  url("<%= asset_path('back-cover.jpg') %>")}
+  .magazine .inner-back {background-image:  url("<%= asset_path('back-page.jpg') %>")}
+  .magazine .inner-front {background-image:  url("<%= asset_path('front-page.png') %>")}  
 </style>
 
 
 <script type="text/javascript" >
   function loadApp() {
    // Create the flipbook
+   $('#canvas').fadeIn(1000);
    var flipbook = $('.magazine');
 
     // Check if the CSS was already loaded
@@ -66,16 +61,18 @@
         height:600,
 
         // Elevation
-        elevation: 30,
+        elevation: 10,
 
         // Enable gradients
         gradients: true,
 
         // Auto center this flipbook
         autoCenter: true,
+         acceleration: true,
         when: {
               turning: function(event, page, view) {
 
+                console.log("turning");
                 var book = $(this),
                 currentPage = book.turn('page'),
                 pages = book.turn('pages');
@@ -84,19 +81,13 @@
 
                 Hash.go('page/' + page).update();
 
-                // Show and hide navigation buttons
-
-                disableControls(page);
               },
 
               turned: function(event, page, view) {
-
-                disableControls(page);
-
+                console.log("t");
                 $(this).turn('center');
 
-                $('#slider').slider('value', getViewNumber($(this), page));
-
+                
                 if (page==1) { 
                         $(this).turn('peel', 'br');
                 }
@@ -105,29 +96,103 @@
 
               missing: function (event, pages) {
 
-                // Add pages that aren't in the magazine
-
-                for (var i = 0; i < pages.length; i++)
+                for (var i = 0; i < pages.length; i++){
                         addPage(pages[i], $(this));
               }
+            }
       }
    });
+
+  setTimeout(function(){
+	        flipbook.fadeTo(500,1);
+	    },1000);
+
+  $(document).keydown(function(e){
+
+    var previous = 37, next = 39, esc = 27;
+    switch (e.keyCode) {
+            case previous:
+                    // left arrow
+                    $('.magazine').turn('previous');
+                    e.preventDefault();
+
+            break;
+            case next:
+                    //right arrow
+                    $('.magazine').turn('next');
+                    e.preventDefault();
+
+            break;
+            case esc:
+                    $('.magazine-viewport').zoom('zoomOut');	
+                    e.preventDefault();
+
+            break;
+    }
+  });
+  
+  // URIs - Format #/page/1 
+
+	Hash.on('^page\/([0-9]*)$', {
+          yep: function(path, parts) {
+              var page = parts[1];
+              if (page!==undefined) {
+                      if ($('.magazine').turn('is'))
+                              $('.magazine').turn('page', page);
+              }
+            },
+          nop: function(path) {
+                  if ($('.magazine').turn('is'))
+                          $('.magazine').turn('page', 1);
+          }
+	});
+
+
+	$(window).resize(function() {
+		resizeViewport();
+	}).bind('orientationchange', function() {
+		resizeViewport();
+	});
 }
+// Zoom icon
+
+ $('.zoom-icon').bind('mouseover', function() {  	
+ 	if ($(this).hasClass('zoom-icon-in'))
+ 		$(this).addClass('zoom-icon-in-hover');
+
+ 	if ($(this).hasClass('zoom-icon-out'))
+ 		$(this).addClass('zoom-icon-out-hover');
+ 
+ }).bind('mouseout', function() { 
+ 	
+ 	 if ($(this).hasClass('zoom-icon-in'))
+ 		$(this).removeClass('zoom-icon-in-hover');
+ 	
+ 	if ($(this).hasClass('zoom-icon-out'))
+ 		$(this).removeClass('zoom-icon-out-hover');
+
+ }).bind('click', function() {
+
+ 	if ($(this).hasClass('zoom-icon-in'))
+ 		$('.magazine-viewport').zoom('zoomIn');
+ 	else if ($(this).hasClass('zoom-icon-out'))	
+		$('.magazine-viewport').zoom('zoomOut');
+
+ });
+
+ $('#canvas').hide();
+
+
 
   // Load the HTML4 version if there's not CSS transform
   $(document).ready(function() {  
+    
+      document.getElementById('header').innerHTML = "";
+      document.getElementById('navigation').innerHTML = "";
+      document.getElementById("foo").innerHTML = "";
      yepnope({
         test : Modernizr.csstransforms,
-        <%#*yep: ['../../assets/turn.js'],%>
-        <%#*nope: ['../../assets/turn.html4.min.js'],%>
-        <%#*both: ['../../assets/magazine.css'],%>
-        <%#*complete: loadApp%>
-	<%#*yep: ['../../assets/turn.js'],%>
-	<%#*nope: ['../../assets/turn.html4.min.js'],%>
-	<%#*both: ['../../assets/zoom.min.js', '../../assets/magazine.js', '../../assets/magazine.css'],%>
-        <%#*complete: loadApp%>
-          
-        yep: ['../../assets/turn.min.js'],
+        yep: ['../../assets/turn.js'],
 	nope: ['../../assets/turn.html4.min.js', '../../assets/jquery.ui.html4.css'],
 	both: ['../../assets/zoom.min.js', '../../assets/jquery.ui.css', '../../assets/magazine.js', '../../assets/magazine.css'],
 	complete: loadApp 

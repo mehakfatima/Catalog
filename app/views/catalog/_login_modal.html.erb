@@ -32,7 +32,7 @@
    
             <div class="clear"></div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-default modalclose" data-dismiss="modal">Close</button>
               <%= f.submit  t('.sign_in', :default => "Sign in"), class: "btn btn-primary btn-signin" %> 
             </div>
           <% end %>
@@ -48,6 +48,7 @@
             </div> 
              <div class="signin-txt pull-left"><a href="#">Sign in</a></div>
              <div class="clear10"></div>
+             
             <div class="modal-footer">
               <button type="button" class="btn btn-default modalclose" data-dismiss="modal">Close</button>
               <%= f.submit  t('.send_me_reset_password_instructions', :default => "Send me reset password instructions"), class: "btn btn-primary btn-forgot"%> 
