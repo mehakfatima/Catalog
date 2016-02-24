@@ -33,7 +33,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Category</label>
             <div class="col-sm-8">
-                <%= select_tag "category_ids", options_from_collection_for_select(Category.all, "id", "name", @product.categories.map(&:id)), multiple: true, 
+                <%= select_tag "category_ids", options_from_collection_for_select(current_organization.categories.all, "id", "name", @product.categories.map(&:id)), multiple: true, 
                   autofocus: true, class: "form-control chosen" , :required => true, 'data-parsley-trigger' => 'change', 'data-parsley-required-message'=>"Please select Category" %>   
               </div>
           </div>

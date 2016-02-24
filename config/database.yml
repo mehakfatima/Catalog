@@ -8,4 +8,4 @@ development:
     database: catalog_new
     host: localhost
     username: postgres
-    password: root
+    password: postgres

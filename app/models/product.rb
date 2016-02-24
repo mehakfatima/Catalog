@@ -14,7 +14,7 @@ class Product < ActiveRecord::Base
   validates_presence_of :name
   has_many :galleries, :dependent => :destroy
   has_many :product_categories , :dependent => :destroy
-  has_many :categories, :through => :product_categories 
+  has_many :categories, :through => :product_categories, dependent: :destroy
   belongs_to :organization
   accepts_nested_attributes_for :product_categories
   accepts_nested_attributes_for :categories
