@@ -130,3 +130,7 @@ img { border:0; }
 .document a { margin:auto !important; vertical-align:middle; display:inline-block; width: 100%; }
 .document img { max-height:160px; margin:auto !important; vertical-align:middle; display:inline-block; }
 */
+
+.browse{
+    padding-bottom: 40px;
+}

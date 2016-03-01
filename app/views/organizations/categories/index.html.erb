@@ -16,7 +16,8 @@
     <div class="table-responsive">
       <table class="table table-striped table-bordered table-hover">
         <thead>
-          <tr>          
+          <tr>     
+            <th class="text-center" style="width:2%;">#</th>
             <th style="width:40%;">NAME</th>
             <th class="text-center" style="width:20%;">ACTIONS</th>
           </tr>
@@ -27,8 +28,9 @@
               <td colspan="4">There is no Category in this section</td>
             </tr>
           <% else %>  
-          <% @categories.each do |category| %>
+          <% @categories.each_with_index do |category, index| %>
             <tr>
+              <td class="text-center"><%= index+1 %></td>
               <td><%= category.name %></td>
                <td class="text-center actions">
                    <%= link_to '<i class="fa fa-pencil fa-lg"></i>'.html_safe, edit_organizations_category_path(category) %>

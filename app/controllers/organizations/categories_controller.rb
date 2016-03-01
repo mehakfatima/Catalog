@@ -17,6 +17,7 @@ class Organizations::CategoriesController < ApplicationController
   end
 
   def create
+    debugger
     @category = current_organization.categories.new(category_params)    
     if @category.save
       flash[:notice]= 'Category has been created'
@@ -51,6 +52,6 @@ class Organizations::CategoriesController < ApplicationController
     end
 
     def category_params
-      params.require(:category).permit(:name)
+      params.require(:category).permit(:name, :organization_id)
     end
 end

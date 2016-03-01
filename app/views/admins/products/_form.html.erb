@@ -45,9 +45,9 @@
                   <% @product.galleries.each do |gallery| %>
                       <%= image_tag gallery.image.url(:thumb) , class: "img-responsive admin-product-img pull-right"%>
                   <% end %>
-                  <%= file_field_tag "images[]", type: :file,autofocus: true, multiple: true, class: "form-control width-auto" %>
+                  <%= file_field_tag "images[]", type: :file,autofocus: true, multiple: true, class: "form-control width-auto browse" %>
                 <% else %>
-                  <%= file_field_tag "images[]", type: :file,autofocus: true, multiple: true, class: "form-control width-auto" , :required => true, 'data-parsley-trigger' => 'change',
+                  <%= file_field_tag "images[]", type: :file,autofocus: true, multiple: true, class: "form-control width-auto browse" , :required => true, 'data-parsley-trigger' => 'change',
                       'data-parsley-required-message'=>"Please select image"%>
                 <% end %>
               </div>
