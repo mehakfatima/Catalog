@@ -20,10 +20,8 @@
    <div class="admin-logo pull-left">
        <img src="<%= asset_path('logo-white.png') %>" class="img-responsive">
    </div>
-   <div class="admin-user pull-right text-right">  
-       <i class="fa fa-user fa-fw"></i> <%= current_organization.email %>   
-       <%#= link_to '<i class="fa fa-user fa-fw"></i>'.html_safe+  current_organization.email ,  edit_organization_registration_path%>     
-
+   <div class="admin-user pull-right text-right">   
+       <%= link_to '<i class="fa fa-user fa-fw"></i>'.html_safe+  current_organization.email ,  edit_organization_registration_path%>     
        <%= link_to '<i class="fa fa-sign-out fa-fw"></i> Sign out'.html_safe, destroy_organization_session_path, :method => :delete%>      
    </div>
   </div>

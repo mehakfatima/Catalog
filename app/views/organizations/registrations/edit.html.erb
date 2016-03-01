@@ -1,36 +1,61 @@
-<div class="container"> 
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4><%= t('.title', :resource => resource_class.model_name.human , :default => "Edit #{resource_name.to_s.humanize}") %></h4>
+<div class="container-fluid">  
+  <div class="admin-content">    
+  <div class="row">    
+    <div class="col-md-6 col-sm-6"><h2>EDIT ORGANIZATION</h2></div>    
+  </div>
+  <hr class="margin-top-10">
+<div class="clear10"></div>
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put , 'data-parsley-validate' => '', class: 'form-horizontal'}) do |f| %>
+  
+<%= bootstrap_devise_error_messages! %>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Organization Name</label>
+    <div class="col-sm-8">
+      <%= f.text_field :name, autofocus: true, class: "form-control",  minlength: 2 ,
+              'data-parsley-required-message'=>"Please insert Organization Name" ,required: true, 'data-parsley-trigger' => 'blur' %>
     </div>
-    <div class="panel-body">
-      <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-        <div class="form-group">
-          <%= f.label :name %>
-          <%= f.text_field :name, autofocus: true, class: "form-control" %>
-        </div>
-        <div class="form-group">
-          <%= f.label :email %>
-          <%= f.email_field :email, autofocus: true, class: "form-control" %>
-        </div>
-        <div class="form-group">
-          <%= f.label :password %> <i>(<%= t('.leave_blank_if_you_don_t_want_to_change_it', :default => "leave blank if you don't want to change it") %>)</i><br />
-          <%= f.password_field :password, :autocomplete => "off", class: "form-control" %>
-        </div>
-        <div class="form-group">
-          <%= f.label :password_confirmation %><br />
-          <%= f.password_field :password_confirmation, class: "form-control"  %>
-        </div>
-        <div class="form-group">
-          <%= f.label :current_password %> <i>(<%= t('.we_need_your_current_password_to_confirm_your_changes', :default => 'we need your current password to confirm your changes') %>)</i>
-          <%= f.password_field :current_password, class: "form-control" %>
-        </div>
-        <%= f.submit t('.update', :default => "Update"), class: "btn btn-primary" %>
-      <% end %>
-    
-      <p><%= t('.unhappy', :default => 'Unhappy') %>? <%= link_to t('.cancel_my_account', :default => "Cancel my account"), registration_path(resource_name), :data => { :confirm => t('.are_you_sure', :default => "Are you sure?") }, :method => :delete %>.</p>
+  </div>
 
-      <%= link_to t('.back', :default => 'Back'), :back %> 
-    </div>  
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-8">
+      <%= f.email_field :email, :readonly => true,autofocus: true, class: "form-control" , required: true, 'data-parsley-trigger' => 'change', 'data-parsley-required-message'=>"Please insert Organization Email"%>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Password</label>
+    <div class="col-sm-8">
+      <%= f.password_field :password, autocomplete: "off", class: "form-control" , required: true, 'data-parsley-required-message'=>"Please insert Organization Password",
+             id: "password", minlength: 8 ,'data-parsley-trigger' => 'blur'%>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Confirm Password</label>
+    <div class="col-sm-8">
+       <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" , id: "confirm_password", 'data-parsley-equalto'=>"#password",
+              'data-parsley-trigger' => 'keyup','data-parsley-equalto-message'=>"Password doesnot match" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+      <label class="col-md-2 control-label">Current Password</label>
+      <div class="col-sm-8">
+      <%= f.password_field :current_password, class: "form-control" %>
+    </div>
+  </div>
+  <div class="actions form-group">
+    <div class="col-sm-offset-2 col-sm-8">
+       <%= f.submit t('.update', :default => "UPDATE ORGANIZATION"), class: "btn btn-success btn-sm" %>
+    </div>
+  </div>
+  <% end %>
+  
+  <div class="actions form-group">
+    <div class="col-sm-offset-2 col-sm-8">
+        <p style="margin-left: -13px"><%= t('.unhappy', :default => 'Unhappy') %>? <%= link_to t('.cancel_my_account', :default => "Cancel my account"), registration_path(resource_name), :data => { :confirm => t('.are_you_sure', :default => "Are you sure?") }, :method => :delete %>.</p>
+    </div>
+  </div>
   </div>
 </div>

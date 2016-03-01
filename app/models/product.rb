@@ -9,7 +9,7 @@ class Product < ActiveRecord::Base
     :product_categories => :id
   }
                 
-  
+  has_many :seasons , :dependent => :destroy
   
   validates_presence_of :name
   has_many :galleries, :dependent => :destroy
@@ -18,6 +18,7 @@ class Product < ActiveRecord::Base
   belongs_to :organization
   accepts_nested_attributes_for :product_categories
   accepts_nested_attributes_for :categories
+  accepts_nested_attributes_for :seasons
 
   def organization_name
     if self.organization.present?

@@ -23,7 +23,7 @@
             </div>
             <div class="account pull-right">
                 <% if user_signed_in? %> 
-                   <i class="fa fa-user fa-fw"></i> <%= current_user.email %>    
+                  <%= link_to '<i class="fa fa-user fa-fw"></i>'.html_safe+  current_user.email ,  edit_user_registration_path%>        
                   <%= link_to '<i class="fa fa-sign-out fa-fw"></i> Sign out'.html_safe,  destroy_user_session_path, :method => :delete%>      
                 <% else %>
                   <%= link_to '<i class="fa fa-user fa-fw"></i>CREATE ACCOUNT'.html_safe ,"#createAccount", "data-toggle" => "modal" %>
