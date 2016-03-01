@@ -3,6 +3,8 @@ class Organization < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
     resourcify
   has_many :products , :dependent => :destroy
+  has_many :categories , :dependent => :destroy
+
   validates :name, uniqueness: true, presence: true
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable , :confirmable

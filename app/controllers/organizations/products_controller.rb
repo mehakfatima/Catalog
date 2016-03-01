@@ -5,8 +5,7 @@ class Organizations::ProductsController < ApplicationController
   
   def index
     if current_organization
-      organization = Organization.find_by_email(current_organization.email)
-      @products = organization.products.paginate(:page => params[:page], :per_page => 10)
+      @products = current_organization.products.paginate(:page => params[:page], :per_page => 10)
     end    
   end
   

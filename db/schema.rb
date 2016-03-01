@@ -11,16 +11,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160112223816) do
+ActiveRecord::Schema.define(version: 20160224122046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "organization_id"
   end
+
+  add_index "categories", ["organization_id"], name: "index_categories_on_organization_id", using: :btree
+
+  create_table "galleries", force: :cascade do |t|
+    t.string   "description"
+    t.string   "image"
+    t.integer  "product_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
+  add_index "galleries", ["product_id"], name: "index_galleries_on_product_id", using: :btree
 
   create_table "organizations", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -57,12 +74,8 @@ ActiveRecord::Schema.define(version: 20160112223816) do
     t.string   "name"
     t.string   "serial_number"
     t.integer  "organization_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   add_index "products", ["organization_id"], name: "index_products_on_organization_id", using: :btree
@@ -81,8 +94,6 @@ ActiveRecord::Schema.define(version: 20160112223816) do
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
-    t.string   "first_name"
-    t.string   "last_name"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -97,6 +108,7 @@ ActiveRecord::Schema.define(version: 20160112223816) do
     t.string   "unconfirmed_email"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -109,4 +121,5 @@ ActiveRecord::Schema.define(version: 20160112223816) do
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
+  add_foreign_key "categories", "organizations"
 end
