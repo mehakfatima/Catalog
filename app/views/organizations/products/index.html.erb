@@ -19,10 +19,9 @@
                     <tr>
              <th class="text-center" style="width:2%;">#</th>
             <th style="width:10%;">SERIAL</th>
-            <th style="width:15%;">NAME</th>
-            <th style="width:15%;">ORGANIZATION</th>
+            <th style="width:20%;">NAME</th>
             <th style="width:30%;">CATEGORIES</th></th>
-            <th style="width:10%;">SEASON</th></th>
+            <th style="width:15%;">SEASON</th></th>
             <th class="text-center" style="width:20%;">ACTIONS</th>
           </tr>            
         </thead>
@@ -37,7 +36,6 @@
                 <td class="text-center"><%= index+1 %></td>
                 <td><%=  product.serial_number %></td>
                 <td><%=  product.name %></td>
-                <td><%=  product.organization_name %></td> 
                 <td>
                   <%product.categories.each_with_index do |category, i|%>  
                     
