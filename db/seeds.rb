@@ -11,6 +11,12 @@ puts "Adding Roles"
   Role.find_or_create_by({name: role})
 end
 
+puts "Adding Seasons"
+['Fall', 'Spring', 'Fall & Spring'].each do |season|
+  Season.find_or_create_by({name: season})
+end
+
+
 unless User.find_by_email('admin@techverx.com').present?
 	admin_role = Role.find_by_name("admin")  
 	# create an Administration user  

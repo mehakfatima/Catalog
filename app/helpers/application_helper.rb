@@ -23,4 +23,8 @@ module ApplicationHelper
   def categories_all
     @categories_all ||= Category.all
   end
+  
+  def seasons_all
+    @seasons ||= Season.all
+  end
 end

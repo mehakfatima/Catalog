@@ -9,7 +9,7 @@ class Organizations::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
    def create
-      @organization = Organization.new(sign_up_params)
+    @organization = Organization.new(sign_up_params)
     respond_to do |format|
       if @organization.save
         format.html { redirect_to @organization, notice: 'Organization was successfully created.' }
@@ -28,7 +28,15 @@ class Organizations::RegistrationsController < Devise::RegistrationsController
 
   # PUT /resource
    def update
-     super
+    
+     @organization = Organization.find(current_organization.id)
+      if @organization.update(sign_up_params)
+        flash[:success]= "#{@organization.name} has been updated"
+        redirect_to organizations_dashboard_index_path
+      else
+        render action: "edit"
+      end
+    
    end
 
   # DELETE /resource
@@ -49,8 +57,12 @@ class Organizations::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
    def sign_up_params
-    params.require(:organization).permit(:name,  :email, :password, :password_confirmation)
-  end
+     unless params[:organization][:password].blank?
+      params.require(:organization).permit(:name,  :email, :password, :password_confirmation)
+    else
+      params.require(:organization).permit(:name,  :email)
+    end
+   end
 
   def account_update_params
     params.require(:organization).permit(:name, :email, :password, :password_confirmation, :current_password)

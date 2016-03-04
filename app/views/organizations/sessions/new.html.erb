@@ -16,7 +16,7 @@
         <div class="form-group">
           <%= f.label :password %>
           <i class="fa fa-key fa-fw"></i>
-          <%= f.password_field :password, autocomplete: "off", class: "form-control", required: true, 'data-parsley-min'=>"8",'data-parsley-trigger' => 'blur', 'data-parsley-required-message'=>"Please insert your Password" %>
+          <%= f.password_field :password, autocomplete: "off" , minlength: 8, class: "form-control", required: true, 'data-parsley-trigger' => 'blur', 'data-parsley-required-message'=>"Please insert your Password" %>
         </div>
         <div class="checkbox inline">
           <% if devise_mapping.rememberable? %>        

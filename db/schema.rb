@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160224122046) do
+ActiveRecord::Schema.define(version: 20160128132715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,7 +36,6 @@ ActiveRecord::Schema.define(version: 20160224122046) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
   end
-
   add_index "galleries", ["product_id"], name: "index_galleries_on_product_id", using: :btree
 
   create_table "organizations", force: :cascade do |t|
@@ -76,9 +75,13 @@ ActiveRecord::Schema.define(version: 20160224122046) do
     t.integer  "organization_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "category_id"
+    t.integer  "season_id"
   end
 
+  add_index "products", ["category_id"], name: "index_products_on_category_id", using: :btree
   add_index "products", ["organization_id"], name: "index_products_on_organization_id", using: :btree
+  add_index "products", ["season_id"], name: "index_products_on_season_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
@@ -90,6 +93,12 @@ ActiveRecord::Schema.define(version: 20160224122046) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
+
+  create_table "seasons", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

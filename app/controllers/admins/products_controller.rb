@@ -65,7 +65,7 @@ class Admins::ProductsController < ApplicationController
     end
 
     def product_params 
-      params.require(:product).permit(:name, :serial_number, { :images=> []} , :category_ids, :organization_id)
+      params.require(:product).permit(:name, :serial_number, { :images=> []} , :category_ids, :organization_id, :season_id)
     end
     
     def add_images(product)

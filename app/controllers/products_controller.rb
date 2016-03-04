@@ -36,8 +36,9 @@ class ProductsController < ApplicationController
     end       
   end
 
-  def update    
-    if @product.update(product_params)
+  def update 
+    
+    if @product.update(product_params)      
       @product.categories.delete_all
       add_images(@product)
       add_categories(@product)
@@ -61,9 +62,9 @@ class ProductsController < ApplicationController
     def set_product
       @product = Product.find(params[:id])
     end
-
-    def product_params       
-      params.require(:product).permit(:name, :serial_number, { :images=> []} , :category_ids)
+    
+    def product_params        
+      params.require(:product).permit(:name, :serial_number, { :images=> []} , :category_ids, :season_id)
     end
     
     def add_images(product)
@@ -80,7 +81,11 @@ class ProductsController < ApplicationController
       category = Category.find(id)
       product.categories << category
       end
-    end    
+    end
+  end
+  
+  def add_season
+    @product.season = params[:season_id]
   end
     
 end
