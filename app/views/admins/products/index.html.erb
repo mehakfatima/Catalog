@@ -26,17 +26,16 @@
           <tr>
              <th class="text-center" style="width:2%;">#</th>
             <th style="width:10%;">SERIAL</th>
-            <th style="width:15%;">NAME</th>
-            <th style="width:15%;">ORGANIZATION</th>
+            <th style="width:20%;">NAME</th>
             <th style="width:30%;">CATEGORIES</th></th>
-            <th style="width:10%;">SEASON</th></th>
+            <th style="width:15%;">SEASON</th></th>
             <th class="text-center" style="width:20%;">ACTIONS</th>
           </tr>            
         </thead>
       <tbody>
        <% if @products.size == 0 %>
             <tr>
-              <td colspan="4">There is no contact in this section</td>
+              <td colspan="6">There is no contact in this section</td>
             </tr>
           <% else %>  
             <% @products.each_with_index do |product, index| %>
